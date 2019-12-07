@@ -6,16 +6,42 @@
 -(void)updateSDKViews {
     self.installableSDKEntries = [[NSMutableArray alloc] init];
     NSArray *versions = self.SDKList[@"versions"];
+    int i = 0;
     for (NSDictionary *dict in versions) {
         MHSDKInstallEntry *entry = [[MHSDKInstallEntry alloc] initWithDictionary:dict];
-
         [self.installableSDKEntries addObject: entry];
-        MHSDKInstallableView *view = [[MHSDKInstallableView alloc] initWithEntry:entry];
-        [self.installableSDKViews addObject: view];
+
+        MHSDKInstallableView *installableSDKView = [[MHSDKInstallableView alloc] initWithEntry:entry];
+        [self.installContainerView addSubview: installableSDKView];
+        [installableSDKView.centerXAnchor constraintEqualToAnchor:self.installContainerView.centerXAnchor].active = YES;
+        [NSLayoutConstraint constraintWithItem:installableSDKView
+                                    attribute:NSLayoutAttributeWidth
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self.view  
+                                    attribute:NSLayoutAttributeWidth
+                                    multiplier:0.9f
+                                    constant:0.f].active = YES;
+        [NSLayoutConstraint constraintWithItem:installableSDKView
+                                    attribute:NSLayoutAttributeHeight
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self.view  
+                                    attribute:NSLayoutAttributeHeight
+                                    multiplier:0.33f
+                                    constant:0.f].active = YES;
+        [NSLayoutConstraint constraintWithItem:installableSDKView
+                                    attribute:NSLayoutAttributeCenterY
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self.view  
+                                    attribute:NSLayoutAttributeCenterY
+                                    multiplier:0.f
+                                    constant:(20.f+i*20.0f)].active = YES;
+
+        [self.installableSDKViews addObject: installableSDKView];
+        i++;
     }
 }
 
--(void)downloadSDKList {
+-(void)downloadSDKListIfNecessary {
     NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *fileName = [NSString stringWithFormat:@"%@/SDKList.plist", documentsDirectory];
@@ -55,7 +81,6 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    [self downloadSDKList];
     self.view.backgroundColor = [UIColor whiteColor];
 
     self.headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -67,11 +92,17 @@
     self.installContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.installContainerView.backgroundColor = UICOLORMAKE(235, 235, 235);
     self.installContainerView.layer.cornerRadius = 20;
-    
+
+    self.installScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    self.installContainerView.layer.cornerRadius = 20;
+    self.installScrollView.minimumZoomScale = 1;
     [self.view addSubview: self.headerLabel];
-    [self.view addSubview: self.installContainerView];
+    [self.view addSubview: self.installScrollView];
+    [self.installScrollView addSubview: self.installContainerView];
+
     self.headerLabel.translatesAutoresizingMaskIntoConstraints = false;
     self.installContainerView.translatesAutoresizingMaskIntoConstraints = false;
+    self.installScrollView.translatesAutoresizingMaskIntoConstraints = false;
 
     [self.headerLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
     [NSLayoutConstraint constraintWithItem:self.headerLabel
@@ -82,11 +113,35 @@
                                 multiplier:0.5f
                                 constant:0.f].active = YES;
 
-    [self.installContainerView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
-    [NSLayoutConstraint constraintWithItem:self.installContainerView
+
+    [self.installScrollView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    [NSLayoutConstraint constraintWithItem:self.installScrollView
                                 attribute:NSLayoutAttributeCenterY
                                 relatedBy:NSLayoutRelationEqual
                                 toItem:self.view  
+                                attribute:NSLayoutAttributeCenterY
+                                multiplier:1.0f
+                                constant:0.f].active = YES;
+    [NSLayoutConstraint constraintWithItem:self.installScrollView
+                                attribute:NSLayoutAttributeWidth
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:self.view  
+                                attribute:NSLayoutAttributeWidth
+                                multiplier:0.66f
+                                constant:0.f].active = YES;
+    [NSLayoutConstraint constraintWithItem:self.installScrollView
+                                attribute:NSLayoutAttributeHeight
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:self.view  
+                                attribute:NSLayoutAttributeHeight
+                                multiplier:0.33f
+                                constant:0.f].active = YES;
+
+    [self.installContainerView.centerXAnchor constraintEqualToAnchor:self.installScrollView.centerXAnchor].active = YES;
+    [NSLayoutConstraint constraintWithItem:self.installContainerView
+                                attribute:NSLayoutAttributeCenterY
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:self.installScrollView  
                                 attribute:NSLayoutAttributeCenterY
                                 multiplier:1.0f
                                 constant:0.f].active = YES;
@@ -94,17 +149,22 @@
     [NSLayoutConstraint constraintWithItem:self.installContainerView
                                 attribute:NSLayoutAttributeWidth
                                 relatedBy:NSLayoutRelationEqual
-                                toItem:self.view  
+                                toItem:self.installScrollView 
                                 attribute:NSLayoutAttributeWidth
-                                multiplier:0.66f
+                                multiplier:1.0f
                                 constant:0.f].active = YES;
 
     [NSLayoutConstraint constraintWithItem:self.installContainerView
                                 attribute:NSLayoutAttributeHeight
                                 relatedBy:NSLayoutRelationEqual
-                                toItem:self.view  
+                                toItem:self.installScrollView  
                                 attribute:NSLayoutAttributeHeight
-                                multiplier:0.33f
+                                multiplier:1.0f
                                 constant:0.f].active = YES;
+
+
+    
+
+    [self downloadSDKListIfNecessary];
 }
 @end
