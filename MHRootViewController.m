@@ -1,9 +1,14 @@
 #import "MHRootViewController.h"
-
+#define ALERT(str) [[[UIAlertView alloc] initWithTitle:str message:@"" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
 @implementation MHRootViewController 
--(id)init {
+-(id)initWithURL:(NSURL *)url {
 	if ((self = [super init])) {
 		_cellIdentifier = @"MHCell";
+		if (!url) {
+			self.directoryURL = [NSURL URLWithString:[[NSString stringWithFormat:@"%@%@", [[[NSBundle mainBundle] resourceURL] absoluteString], @"Data"] stringByReplacingOccurrencesOfString:@"file://" withString:@""]];
+		} else {
+			self.directoryURL = url;
+		}
 	}
 	return self;
 }
@@ -12,8 +17,19 @@
 	return self.entries.count;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+	MHTableEntry *currentObject = [self.entries objectAtIndex:indexPath.row];
+	if (currentObject.isDirectory) {
+		MHRootViewController *newViewController = [[MHRootViewController alloc] initWithURL:currentObject.url];
+		[self.navigationController pushViewController: newViewController animated:YES];
+	}
+
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	cell.textLabel.text = self.entries[indexPath.row];
+	MHTableEntry *entry = self.entries[indexPath.row];
+	cell.textLabel.text = entry.name;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -23,9 +39,22 @@
 	}
 	return cell;
 }
-
+-(void)loadEntries {
+	self.entries = [NSMutableArray new];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSArray *properties = [NSArray arrayWithObjects: NSURLLocalizedNameKey, nil];
+	NSError *error = nil;
+	NSMutableArray *URLs = [[fileManager contentsOfDirectoryAtURL:self.directoryURL
+								includingPropertiesForKeys:properties
+                   				options:(NSDirectoryEnumerationSkipsPackageDescendants)
+                   				error:&error] mutableCopy];
+	for (NSURL *url in URLs) {
+		MHTableEntry *fileObject = [[MHTableEntry alloc] initWithURL:url];
+		[self.entries addObject:fileObject];
+	}
+}
 -(void)setup {
-	self.entries = [NSMutableArray arrayWithObjects:@"cummy",nil];
+	[self loadEntries];
 	self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:_cellIdentifier];
 

@@ -8,7 +8,7 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	_window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 
-	_rootViewController = [[MHRootViewController alloc] init];
+	_rootViewController = [[MHRootViewController alloc] initWithURL:nil];
 	_navigationController = [[MHNavigationController alloc] initWithRootViewController:_rootViewController];
 	_window.rootViewController = _navigationController;
 	[_window makeKeyAndVisible];

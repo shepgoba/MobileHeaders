@@ -1,4 +1,4 @@
-/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/arm64/MHRootViewController.m.44acba5b.o: \
+/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/arm64/MHRootViewController.m.2897472c.o: \
   MHRootViewController.m /Users/baapcgaming/theos/Prefix.pch \
   /Users/baapcgaming/theos/vendor/include/_Prefix/BackwardsCompat.h \
   /Users/baapcgaming/theos/vendor/include/_Prefix/IOSMacros.h \
