@@ -4,7 +4,8 @@
   /Users/baapcgaming/theos/vendor/include/_Prefix/IOSMacros.h \
   /Users/baapcgaming/theos/vendor/include/HBLog.h \
   /Users/baapcgaming/theos/vendor/include/CoreFoundation/CFLogUtilities.h \
-  MHSDKInstallerController.h MHViewController.h
+  MHSDKInstallerController.h MHViewController.h MHSDKInstallableView.h \
+  MHSDKInstallEntry.h
 
 /Users/baapcgaming/theos/Prefix.pch:
 
@@ -19,3 +20,7 @@
 MHSDKInstallerController.h:
 
 MHViewController.h:
+
+MHSDKInstallableView.h:
+
+MHSDKInstallEntry.h:

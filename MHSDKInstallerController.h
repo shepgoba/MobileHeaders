@@ -1,10 +1,12 @@
 #import "MHViewController.h"
-
+#import "MHSDKInstallableView.h"
+#import "MHSDKInstallEntry.h"
 @interface MHSDKInstallerController : MHViewController
-@property (nonatomic, strong) UILabel *headerLabel;
-@property (nonatomic, strong) UIView *installSDKs;
-@property (nonatomic, strong) NSMutableArray *possibleSDKViews;
 @property (nonatomic, strong) NSDictionary *SDKList;
+@property (nonatomic, strong) UILabel *headerLabel;
+@property (nonatomic, strong) UIView *installContainerView;
+@property (nonatomic, strong) NSMutableArray *installableSDKEntries;
+@property (nonatomic, strong) NSMutableArray *installableSDKViews;
 -(void)downloadSDKList;
 -(void)updateSDKViews;
 @end

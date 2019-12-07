@@ -7,7 +7,7 @@ GO_EASY_ON_ME=1
 
 MobileHeaders_FILES = $(wildcard *.m)
 MobileHeaders_FRAMEWORKS = UIKit CoreGraphics
-MobileHeaders_CFLAGS = -w -fobjc-arc
+MobileHeaders_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/application.mk
 
