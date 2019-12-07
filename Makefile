@@ -3,6 +3,8 @@ export ARCHS = armv7 arm64
 export TARGET = iphone:clang:9.2:9.0
 APPLICATION_NAME = MobileHeaders
 
+GO_EASY_ON_ME=1
+
 MobileHeaders_FILES = $(wildcard *.m)
 MobileHeaders_FRAMEWORKS = UIKit CoreGraphics
 MobileHeaders_CFLAGS = -w -fobjc-arc

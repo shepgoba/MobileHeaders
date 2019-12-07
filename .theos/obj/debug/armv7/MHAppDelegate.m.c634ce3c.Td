@@ -5,7 +5,8 @@
   /Users/baapcgaming/theos/vendor/include/HBLog.h \
   /Users/baapcgaming/theos/vendor/include/CoreFoundation/CFLogUtilities.h \
   MHAppDelegate.h MHRootViewController.h MHViewController.h \
-  MHSDKInstallerController.h MHTableEntry.h MHNavigationController.h
+  MHSDKInstallerController.h MHTableEntry.h MHHeaderViewController.h \
+  MHNavigationController.h MHTabBarController.h
 
 /Users/baapcgaming/theos/Prefix.pch:
 
@@ -27,4 +28,8 @@ MHSDKInstallerController.h:
 
 MHTableEntry.h:
 
+MHHeaderViewController.h:
+
 MHNavigationController.h:
+
+MHTabBarController.h:

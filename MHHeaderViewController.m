@@ -10,9 +10,9 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
+
     NSError *error;
-    NSString *fileContents = [NSString stringWithContentsOfFile:self.url encoding:NSUTF8StringEncoding error:&error];
+    NSString *fileContents = [NSString stringWithContentsOfFile:[[self.url absoluteString] stringByReplacingOccurrencesOfString:@"file://" withString:@""] encoding:NSUTF8StringEncoding error:&error];
 
     self.textView = [[UITextView alloc] initWithFrame:self.view.bounds];
     self.textView.editable = NO;
