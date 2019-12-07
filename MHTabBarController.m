@@ -1,6 +1,9 @@
 #import "MHTabBarController.h"
 #import "MHRootViewController.h"
 #import "MHSettingsViewController.h"
+@interface UIView (iOS11) 
+-(id)safeAreaLayoutGuide;
+@end
 @implementation MHTabBarController
 -(id)init {
     if ((self = [super init])) {

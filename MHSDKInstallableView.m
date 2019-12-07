@@ -6,14 +6,19 @@
 -(id)initWithEntry:(MHSDKInstallEntry *)entry {
     if ((self = [super init])) {
         self.entry = entry;
-
-        self.versionLabel = [[UILabel alloc] init];
-
         self.backgroundColor = UICOLORMAKE(220, 220, 220);
         self.layer.cornerRadius = 20;
-        
     }
 
     return self;
+}
+
+-(void)setup {
+    self.versionLabel = [[UILabel alloc] init];
+    self.versionLabel.textColor = [UIColor blackColor];
+    self.versionLabel.font = [UIFont boldSystemFontOfSize:15];
+    self.versionLabel.text = self.entry.name;
+    [self.versionLabel sizeToFit];
+    [self addSubview:self.versionLabel];
 }
 @end

@@ -1,13 +1,15 @@
 include $(THEOS)/makefiles/common.mk
-export ARCHS = armv7 arm64
-export TARGET = iphone:clang:9.2:9.0
+GO_EASY_ON_ME=1
+
+export ARCHS = arm64 arm64e
+export TARGET = iphone:clang:11.2:9.0
+
 APPLICATION_NAME = MobileHeaders
 
-GO_EASY_ON_ME=1
 
 MobileHeaders_FILES = $(wildcard *.m)
 MobileHeaders_FRAMEWORKS = UIKit CoreGraphics
-MobileHeaders_CFLAGS = -fobjc-arc
+MobileHeaders_CFLAGS = -w -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/application.mk
 

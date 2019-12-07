@@ -1,11 +1,13 @@
 #import "MHRootViewController.h"
-#define ALERT(str) [[[UIAlertView alloc] initWithTitle:str message:@"" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
+
 @implementation MHRootViewController 
 -(id)initWithURL:(NSURL *)url {
 	if ((self = [super init])) {
+		self.title = @"Home";
 		_cellIdentifier = @"MHCell";
 		if (!url) {
-			self.directoryURL = [NSURL URLWithString:[[NSString stringWithFormat:@"%@%@", [[[NSBundle mainBundle] resourceURL] absoluteString], @"Data"] stringByReplacingOccurrencesOfString:@"file://" withString:@""]];
+			self.directoryURL = [NSURL URLWithString:[MHUtils URLForDocumentsResource:@"Data"]];
+			[[NSFileManager defaultManager] createDirectoryAtPath:[self.directoryURL absoluteString] withIntermediateDirectories:YES attributes:nil error:nil];
 		} else {
 			self.directoryURL = url;
 		}

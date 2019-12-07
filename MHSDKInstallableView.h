@@ -4,4 +4,5 @@
 @property (nonatomic, strong) UILabel *versionLabel;
 
 -(id)initWithEntry:(MHSDKInstallEntry *)entry;
+-(void)setup;
 @end
