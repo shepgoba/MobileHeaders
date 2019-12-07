@@ -1,12 +1,10 @@
-/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/arm64/MHAppDelegate.m.2897472c.o: \
-  MHAppDelegate.m /Users/baapcgaming/theos/Prefix.pch \
+/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/armv7/MHSettingsViewController.m.d75e009e.o: \
+  MHSettingsViewController.m /Users/baapcgaming/theos/Prefix.pch \
   /Users/baapcgaming/theos/vendor/include/_Prefix/BackwardsCompat.h \
   /Users/baapcgaming/theos/vendor/include/_Prefix/IOSMacros.h \
   /Users/baapcgaming/theos/vendor/include/HBLog.h \
   /Users/baapcgaming/theos/vendor/include/CoreFoundation/CFLogUtilities.h \
-  MHAppDelegate.h MHRootViewController.h MHViewController.h \
-  MHSDKInstallerController.h MHTableEntry.h MHHeaderViewController.h \
-  MHNavigationController.h MHTabBarController.h
+  MHSettingsViewController.h MHViewController.h
 
 /Users/baapcgaming/theos/Prefix.pch:
 
@@ -18,18 +16,6 @@
 
 /Users/baapcgaming/theos/vendor/include/CoreFoundation/CFLogUtilities.h:
 
-MHAppDelegate.h:
-
-MHRootViewController.h:
+MHSettingsViewController.h:
 
 MHViewController.h:
-
-MHSDKInstallerController.h:
-
-MHTableEntry.h:
-
-MHHeaderViewController.h:
-
-MHNavigationController.h:
-
-MHTabBarController.h:

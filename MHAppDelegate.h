@@ -1,11 +1,12 @@
 #import "MHRootViewController.h"
 #import "MHSDKInstallerController.h"
 #import "MHNavigationController.h"
+#import "MHTabBarController.h"
 
 @interface MHAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (nonatomic, strong) UIWindow *window;
-@property (nonatomic, strong) MHRootViewController *rootViewController;
-@property (nonatomic, strong) MHNavigationController *navigationController;
+@property (nonatomic, strong, readonly) UIWindow *window;
+@property (nonatomic, strong, readonly) MHRootViewController *rootViewController;
+@property (nonatomic, strong, readonly) MHTabBarController *tabBarController;
 
 @end

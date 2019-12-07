@@ -1,0 +1,3 @@
+@interface MHTabBarController : UITabBarController
+
+@end

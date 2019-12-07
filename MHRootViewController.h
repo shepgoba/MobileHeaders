@@ -1,6 +1,7 @@
 #import "MHViewController.h"
 #import "MHSDKInstallerController.h"
 #import "MHTableEntry.h"
+#import "MHHeaderViewController.h"
 
 @interface MHRootViewController : MHViewController <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, readonly) NSString *cellIdentifier;

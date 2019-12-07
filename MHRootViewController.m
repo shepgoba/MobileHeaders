@@ -23,6 +23,9 @@
 	if (currentObject.isDirectory) {
 		MHRootViewController *newViewController = [[MHRootViewController alloc] initWithURL:currentObject.url];
 		[self.navigationController pushViewController: newViewController animated:YES];
+	} else {
+		MHHeaderViewController *headerViewController = [[MHHeaderViewController alloc] initWithURL:currentObject.url];
+		[self.navigationController pushViewController: headerViewController animated:YES];
 	}
 
 }
