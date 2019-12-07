@@ -1,0 +1,2 @@
+@interface MHNavigationController : UINavigationController
+@end
