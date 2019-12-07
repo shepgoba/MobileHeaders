@@ -6,5 +6,5 @@
 @property (nonatomic, strong) UIView *installSDKs;
 @property (nonatomic, strong) NSMutableArray *possibleSDKViews;
 @property (nonatomic, strong) NSMutableArray *possibleSDKs;
-
+-(void)downloadSDKList;
 @end

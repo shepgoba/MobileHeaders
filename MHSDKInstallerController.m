@@ -4,17 +4,25 @@
 @implementation MHSDKInstallerController
 -(id)init {
     if ((self = [super init])) {
-       
+       [self downloadSDKList];
     }
     return self;
 }
--(void)loadView {
-    [super loadView];
-    
+
+-(void)downloadSDKList {
+    if ([NSURL URLForResource:@"sdklist"]) {
+
+    }
+}
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+
     self.headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.headerLabel.text = @"Install SDK Headers";
     self.headerLabel.textColor = [UIColor blackColor];
-    self.headerLabel.font = [UIFont systemFontOfSize:30];
+    self.headerLabel.font = [UIFont boldSystemFontOfSize:30];
     [self.headerLabel sizeToFit];
 
     self.installSDKs = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -59,10 +67,5 @@
                                 attribute:NSLayoutAttributeHeight
                                 multiplier:0.33f
                                 constant:0.f].active = YES;
-}
-
-- (void) viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
 }
 @end

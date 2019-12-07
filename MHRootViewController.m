@@ -66,8 +66,8 @@
 
 	[self.view addSubview:self.tableView];
 
-	/*MHSDKInstallerController *installerController = [[MHSDKInstallerController alloc] init];
-	[self.navigationController pushViewController:installerController animated:YES];*/
+	MHSDKInstallerController *installerController = [[MHSDKInstallerController alloc] init];
+	[self.navigationController pushViewController:installerController animated:YES];
 }
 
 -(void)viewDidLoad {
