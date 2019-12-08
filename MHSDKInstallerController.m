@@ -140,7 +140,7 @@
     self.confirmInstallButton.translatesAutoresizingMaskIntoConstraints = false;
     self.confirmInstallButton.backgroundColor = UICOLORMAKE(22, 219, 22);
 
-    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(installSelectedSDKs)];
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(confirmInstallSelectedSDKs)];
     [self.confirmInstallButton addGestureRecognizer:singleFingerTap];
 
     UILabel *confirmInstallButtonText = [[UILabel alloc] init];
@@ -266,6 +266,12 @@
 }
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     NSString *fileName = [downloadTask.originalRequest.URL.absoluteString lastPathComponent];
+    for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
+        if ([entry.SDKURL.absoluteString isEqualToString: downloadTask.originalRequest.URL.absoluteString]) {
+                [self.allFilesToDecompress addObject:fileName];
+                [entry.view.progressBar setHidden:YES];
+        }
+    }
     NSData *data = [NSData dataWithContentsOfURL:location];
     dispatch_async(dispatch_get_main_queue(), ^{
         [data writeToFile:[MHUtils URLForDocumentsResource:fileName] atomically:NO];
@@ -278,7 +284,6 @@
 
     float progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
     dispatch_async(dispatch_get_main_queue(), ^{
-
         for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
             if ([entry.SDKURL.absoluteString isEqualToString: downloadTask.originalRequest.URL.absoluteString])
                 [entry.view.progressBar setProgress:progress];
@@ -286,11 +291,37 @@
 
     });
 }
--(void)installSelectedSDKs {
+float MB(int bytes) {
+    return ((float)bytes / (1024.f * 1024.f));
+}
+-(void)confirmInstallSelectedSDKs {
     [self.confirmInstallButton setActive:NO];
-    self.allEntriesToDownload = [NSMutableArray new];
+    self.allEntriesToDownload = [[NSMutableArray alloc] init];
     [self findAllEntriesToDownload];
 
+    int totalDownloadSize = 0;
+    int totalDiskUsage = 0;
+
+    for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
+        totalDownloadSize += entry.size;
+        totalDiskUsage += entry.installedSize;
+    }
+    NSString *alertString = [NSString stringWithFormat:@"This will download %0.2fMB and take up %0.2fMB on your system.", MB(totalDownloadSize), MB(totalDiskUsage)];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to download these?" message:alertString preferredStyle:UIAlertControllerStyleAlert];
+ 
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+         [self installSelectedSDKs];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+    handler:^(UIAlertAction * action) {
+    }];
+    [alert addAction:defaultAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert animated:YES completion:nil];
+    [self.confirmInstallButton setActive:YES];
+}
+
+-(void) installSelectedSDKs {
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
 
@@ -300,5 +331,17 @@
         [downloadTask resume];
         
     }
+    self.allFilesToDecompress = [[NSMutableArray alloc] init];
+    [self decompressFiles];
+    [self.confirmInstallButton setActive:YES];
 }
+
+-(void)decompressFiles {
+    LzmaSDKObjCReader *reader = [[LzmaSDKObjCReader alloc] initWithFileURL:[NSURL fileURLWithPath:[MHUtils URLForDocumentsResource:@"iOS11.0-headers.7z"]]];
+    NSError * error = nil;
+    if (![reader open:&error]) {
+            NSLog(@"Open error: %@", error);
+        }
+        NSLog(@"Open error: %@", reader.lastError);
+    }
 @end

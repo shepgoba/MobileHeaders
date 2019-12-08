@@ -1,4 +1,4 @@
-/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/arm64e/MHUtils.m.67c82d14.o: \
+/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/arm64e/./MHUtils.m.67c82d14.o: \
   MHUtils.m /Users/baapcgaming/theos/Prefix.pch \
   /Users/baapcgaming/theos/vendor/include/_Prefix/BackwardsCompat.h \
   /Users/baapcgaming/theos/vendor/include/_Prefix/IOSMacros.h \

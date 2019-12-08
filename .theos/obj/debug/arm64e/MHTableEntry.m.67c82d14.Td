@@ -1,4 +1,4 @@
-/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/arm64e/MHTableEntry.m.67c82d14.o: \
+/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/arm64e/./MHTableEntry.m.67c82d14.o: \
   MHTableEntry.m /Users/baapcgaming/theos/Prefix.pch \
   /Users/baapcgaming/theos/vendor/include/_Prefix/BackwardsCompat.h \
   /Users/baapcgaming/theos/vendor/include/_Prefix/IOSMacros.h \

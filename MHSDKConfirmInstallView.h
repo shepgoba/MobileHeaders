@@ -3,5 +3,5 @@
 }
 @property (nonatomic, strong) CALayer *inactiveLayer;
 -(BOOL)isActive;
--(BOOL)setActive:(BOOL)new;
+-(void)setActive:(BOOL)new;
 @end
