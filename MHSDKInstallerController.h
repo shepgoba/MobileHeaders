@@ -7,6 +7,7 @@
 @property (nonatomic, strong) UILabel *headerLabel;
 @property (nonatomic, strong) UIView *installContainerView;
 @property (nonatomic, strong) UIScrollView *installScrollView;
+@property (nonatomic, strong) UIView *confirmInstallButton;
 @property (nonatomic, strong) NSMutableArray *installableSDKEntries;
 @property (nonatomic, strong) NSMutableArray *installableSDKViews;
 -(void)downloadSDKListIfNecessary;

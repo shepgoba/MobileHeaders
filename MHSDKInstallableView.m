@@ -13,12 +13,22 @@
     return self;
 }
 
+- (CGSize)intrinsicContentSize {
+    return CGSizeMake(UIViewNoIntrinsicMetric, 55);
+}
+
 -(void)setup {
     self.versionLabel = [[UILabel alloc] init];
     self.versionLabel.textColor = [UIColor blackColor];
     self.versionLabel.font = [UIFont boldSystemFontOfSize:15];
     self.versionLabel.text = self.entry.name;
     [self.versionLabel sizeToFit];
+
+    self.shouldInstallSwitch = [[UISwitch alloc] init];
+    self.shouldInstallSwitch.on = NO;
+
+    [self addSubview:self.shouldInstallSwitch];
     [self addSubview:self.versionLabel];
+    
 }
 @end

@@ -1,16 +1,20 @@
 #import "MHSDKInstallerController.h"
 
 #define UICOLORMAKE(r, g, b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1]
-#define ALERT(str) [[[UIAlertView alloc] initWithTitle:str message:@"" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
-
 @implementation MHSDKInstallerController
 -(void)updateSDKViews {
     self.installableSDKViews = [[NSMutableArray alloc] init];
     self.installableSDKEntries = [[NSMutableArray alloc] init];
     NSArray *versions = self.SDKList[@"versions"];
-    CGFloat offset = 1;
+    int versionCount = [versions count];
+    int i = 0;
+    self.installScrollView.contentSize = CGSizeMake(self.installScrollView.frame.size.width, versionCount*100);
     for (NSDictionary *dict in versions) {
-        CGFloat finalOffset = offset*20.f;
+        if (!dict) {            
+            NSLog(@"error");
+            return;
+        }
+        int final = 20 + (i*75);
         MHSDKInstallEntry *entry = [[MHSDKInstallEntry alloc] initWithDictionary:dict];
         [self.installableSDKEntries addObject: entry];
         
@@ -20,7 +24,6 @@
         
         installableSDKView.translatesAutoresizingMaskIntoConstraints = false;
         [installableSDKView.centerXAnchor constraintEqualToAnchor:self.installContainerView.centerXAnchor].active = YES;
-        [installableSDKView.centerYAnchor constraintEqualToAnchor:self.installContainerView.centerYAnchor].active = YES;
 
         [NSLayoutConstraint constraintWithItem:installableSDKView
                                     attribute:NSLayoutAttributeWidth
@@ -29,13 +32,6 @@
                                     attribute:NSLayoutAttributeWidth
                                     multiplier:0.9f
                                     constant:0.f].active = YES;
-        [NSLayoutConstraint constraintWithItem:installableSDKView
-                                    attribute:NSLayoutAttributeHeight
-                                    relatedBy:NSLayoutRelationEqual
-                                    toItem:self.installContainerView  
-                                    attribute:NSLayoutAttributeHeight
-                                    multiplier:0.2f
-                                    constant:0.f].active = YES;
 
         [NSLayoutConstraint constraintWithItem:installableSDKView
                                     attribute:NSLayoutAttributeTop
@@ -43,8 +39,9 @@
                                     toItem:self.installContainerView  
                                     attribute:NSLayoutAttributeTop
                                     multiplier:1.f
-                                    constant:(offset*installableSDKView.frame.size.height)].active = YES;
+                                    constant:final].active = YES;
         [installableSDKView setup];
+
         installableSDKView.versionLabel.translatesAutoresizingMaskIntoConstraints = false;
         [NSLayoutConstraint constraintWithItem:installableSDKView.versionLabel
                                         attribute:NSLayoutAttributeCenterY
@@ -60,6 +57,22 @@
                                         attribute:NSLayoutAttributeLeading
                                         multiplier:1.f
                                         constant:15.f].active = YES;
+        installableSDKView.shouldInstallSwitch.translatesAutoresizingMaskIntoConstraints = false;
+        [NSLayoutConstraint constraintWithItem:installableSDKView.shouldInstallSwitch
+                                        attribute:NSLayoutAttributeCenterY
+                                        relatedBy:NSLayoutRelationEqual
+                                        toItem:installableSDKView  
+                                        attribute:NSLayoutAttributeCenterY
+                                        multiplier:1.f
+                                        constant:0.f].active = YES;
+        [NSLayoutConstraint constraintWithItem:installableSDKView.shouldInstallSwitch
+                                        attribute:NSLayoutAttributeTrailing
+                                        relatedBy:NSLayoutRelationEqual
+                                        toItem:installableSDKView  
+                                        attribute:NSLayoutAttributeTrailing
+                                        multiplier:1.f
+                                        constant:-15.f].active = YES;
+        i++;
     }
 }
 
@@ -73,8 +86,8 @@
     [self downloadSDKList];
 }
 -(void)downloadSDKList {
+    static NSString *stringURL = @"https://raw.githubusercontent.com/shepgoba/shepgoba.github.io/master/mobileheaders/sdks.plist";
     NSString *fileName = [MHUtils URLForDocumentsResource:@"SDKList.plist"];
-    NSString *stringURL = @"https://raw.githubusercontent.com/shepgoba/shepgoba.github.io/master/mobileheaders/sdks.plist";
     NSURL *url = [NSURL URLWithString:stringURL];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     if (urlData) {
@@ -120,6 +133,51 @@
     self.installScrollView.layer.cornerRadius = 20;
     self.installScrollView.minimumZoomScale = 1;
     self.installScrollView.scrollEnabled = YES;
+    self.installScrollView.showsHorizontalScrollIndicator = YES;
+
+    self.confirmInstallButton = [[UIView alloc] init];
+    self.confirmInstallButton.layer.cornerRadius = 15;
+    self.confirmInstallButton.translatesAutoresizingMaskIntoConstraints = false;
+    self.confirmInstallButton.backgroundColor = UICOLORMAKE(22, 219, 22);
+
+    UILabel *confirmInstallButtonText = [[UILabel alloc] init];
+    confirmInstallButtonText.translatesAutoresizingMaskIntoConstraints = false;
+    confirmInstallButtonText.text = @"Install";
+    confirmInstallButtonText.font = [UIFont boldSystemFontOfSize:18];
+    [confirmInstallButtonText sizeToFit];
+
+    [self.view addSubview:self.confirmInstallButton];
+    [self.confirmInstallButton addSubview:confirmInstallButtonText];
+
+    [confirmInstallButtonText.centerXAnchor constraintEqualToAnchor:self.confirmInstallButton.centerXAnchor].active = YES;
+    [confirmInstallButtonText.centerYAnchor constraintEqualToAnchor:self.confirmInstallButton.centerYAnchor].active = YES;
+
+    [self.confirmInstallButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
+    [NSLayoutConstraint constraintWithItem:self.confirmInstallButton
+                                attribute:NSLayoutAttributeHeight
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:self.view  
+                                attribute:NSLayoutAttributeHeight
+                                multiplier:0.05f
+                                constant:0.f].active = YES;
+
+    [NSLayoutConstraint constraintWithItem:self.confirmInstallButton
+                                attribute:NSLayoutAttributeWidth
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:self.view  
+                                attribute:NSLayoutAttributeWidth
+                                multiplier:0.5f
+                                constant:0.f].active = YES;
+
+    [NSLayoutConstraint constraintWithItem:self.confirmInstallButton
+                                attribute:NSLayoutAttributeCenterY
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:self.view  
+                                attribute:NSLayoutAttributeCenterY
+                                multiplier:1.6f
+                                constant:0.f].active = YES;
+
+
 
     [self.view addSubview: self.headerLabel];
     [self.view addSubview: self.installScrollView];

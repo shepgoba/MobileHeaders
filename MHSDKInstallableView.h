@@ -2,7 +2,7 @@
 @interface MHSDKInstallableView : UIView
 @property (nonatomic, strong) MHSDKInstallEntry *entry;
 @property (nonatomic, strong) UILabel *versionLabel;
-
+@property (nonatomic, strong) UISwitch *shouldInstallSwitch;
 -(id)initWithEntry:(MHSDKInstallEntry *)entry;
 -(void)setup;
 @end
