@@ -33,7 +33,28 @@
     [self addSubview:self.versionLabel];
     
 }
-
+-(void)setupProgressBar {
+    self.progressBar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    self.progressBar.progressTintColor = UICOLORMAKE(61, 255, 236);
+    self.progressBar.trackTintColor = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkModeEnabled"] ? UICOLORMAKE(150, 150, 150) : UICOLORMAKE(38, 38, 38); 
+    self.progressBar.translatesAutoresizingMaskIntoConstraints = false;
+    [self addSubview:self.progressBar];
+    [self.progressBar.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = YES;
+    [NSLayoutConstraint constraintWithItem:self.progressBar
+                                attribute:NSLayoutAttributeCenterY
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:self
+                                attribute:NSLayoutAttributeCenterY
+                                multiplier:2.0f
+                                constant:-2.f].active = YES;
+    [NSLayoutConstraint constraintWithItem:self.progressBar
+                                attribute:NSLayoutAttributeWidth
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:self 
+                                attribute:NSLayoutAttributeWidth
+                                multiplier:1.f
+                                constant:-25.f].active = YES;
+}
 -(void)switchValueChanged {
     self.entry.shouldInstall = self.shouldInstallSwitch.on;
 }

@@ -255,23 +255,20 @@
     [self downloadSDKListIfNecessary];
 }
 
-- (NSArray *) allEntriesToDownload {
+- (void) findAllEntriesToDownload {
     NSMutableArray *tmp = [[NSMutableArray alloc] init];
     for (MHSDKInstallEntry *entry in self.installableSDKEntries) {
         if (entry && entry.shouldInstall) {
             [tmp addObject: entry];
         }
     }
-    return [tmp copy];
+    self.allEntriesToDownload = [tmp copy];
 }
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
-
-    //static int filenameIndex = 0;
+    NSString *fileName = [downloadTask.originalRequest.URL.absoluteString lastPathComponent];
     NSData *data = [NSData dataWithContentsOfURL:location];
-    //NSString *filename = ((MHSDKInstallEntry *)[self.installableSDKEntries objectAtIndex:filenameIndex]).name;
-
     dispatch_async(dispatch_get_main_queue(), ^{
-        [data writeToFile:[MHUtils URLForDocumentsResource:@"tmp"] atomically:NO];
+        [data writeToFile:[MHUtils URLForDocumentsResource:fileName] atomically:NO];
     });
 }
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
@@ -282,36 +279,23 @@
     float progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
     dispatch_async(dispatch_get_main_queue(), ^{
 
-        //[_progressBar setProgress:progress];
+        for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
+            if ([entry.SDKURL.absoluteString isEqualToString: downloadTask.originalRequest.URL.absoluteString])
+                [entry.view.progressBar setProgress:progress];
+        }
 
     });
 }
 -(void)installSelectedSDKs {
-    self.confirmInstallButton.inactive = YES;
-    NSArray *downloadTasks = [self allEntriesToDownload];
+    [self.confirmInstallButton setActive:NO];
+    self.allEntriesToDownload = [NSMutableArray new];
+    [self findAllEntriesToDownload];
 
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
 
-    for (MHSDKInstallEntry *entry in downloadTasks) {
-        UIProgressView *progressBar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-        progressBar.translatesAutoresizingMaskIntoConstraints = false;
-        [entry.view addSubview:progressBar];
-        [progressBar.centerXAnchor constraintEqualToAnchor:entry.view.centerXAnchor].active = YES;
-        [NSLayoutConstraint constraintWithItem:progressBar
-                                attribute:NSLayoutAttributeCenterY
-                                relatedBy:NSLayoutRelationEqual
-                                toItem:entry.view 
-                                attribute:NSLayoutAttributeCenterY
-                                multiplier:2.0f
-                                constant:0.f].active = YES;
-        [NSLayoutConstraint constraintWithItem:progressBar
-                                attribute:NSLayoutAttributeWidth
-                                relatedBy:NSLayoutRelationEqual
-                                toItem:entry.view 
-                                attribute:NSLayoutAttributeWidth
-                                multiplier:0.5f
-                                constant:0.f].active = YES;
+    for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
+        [entry.view setupProgressBar];
         NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:entry.SDKURL];
         [downloadTask resume];
         

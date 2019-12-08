@@ -6,7 +6,7 @@
   /Users/baapcgaming/theos/vendor/include/CoreFoundation/CFLogUtilities.h \
   MHSettingsViewController.h MHViewController.h \
   MHSDKInstallerController.h MHSDKInstallableView.h MHSDKInstallEntry.h \
-  MHUtils.h
+  MHSDKConfirmInstallView.h MHUtils.h
 
 /Users/baapcgaming/theos/Prefix.pch:
 
@@ -27,5 +27,7 @@ MHSDKInstallerController.h:
 MHSDKInstallableView.h:
 
 MHSDKInstallEntry.h:
+
+MHSDKConfirmInstallView.h:
 
 MHUtils.h:

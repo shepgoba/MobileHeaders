@@ -6,5 +6,6 @@
 }
 -(void)setActive:(BOOL)new {
     _isActive = new;
+    self.userInteractionEnabled = new;
 }
 @end
