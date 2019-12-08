@@ -6,7 +6,7 @@
 -(id)initWithEntry:(MHSDKInstallEntry *)entry {
     if ((self = [super init])) {
         self.entry = entry;
-        
+        self.entry.view = self;
         self.backgroundColor = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkModeEnabled"] ? UICOLORMAKE(80, 80 ,80) : UICOLORMAKE(220, 220, 220);
         self.layer.cornerRadius = 20;
     }

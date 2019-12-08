@@ -1,5 +1,5 @@
 #import "MHSDKInstallerController.h"
-
+#define ALERT(str) [[[UIAlertView alloc] initWithTitle:@"cummy" message:str delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
 #define UICOLORMAKE(r, g, b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1]
 @implementation MHSDKInstallerController
 -(void)updateSDKViews {
@@ -135,7 +135,7 @@
     self.installScrollView.scrollEnabled = YES;
     self.installScrollView.showsHorizontalScrollIndicator = YES;
 
-    self.confirmInstallButton = [[UIView alloc] init];
+    self.confirmInstallButton = [[MHSDKConfirmInstallView alloc] init];
     self.confirmInstallButton.layer.cornerRadius = 15;
     self.confirmInstallButton.translatesAutoresizingMaskIntoConstraints = false;
     self.confirmInstallButton.backgroundColor = UICOLORMAKE(22, 219, 22);
@@ -255,7 +255,66 @@
     [self downloadSDKListIfNecessary];
 }
 
+- (NSArray *) allEntriesToDownload {
+    NSMutableArray *tmp = [[NSMutableArray alloc] init];
+    for (MHSDKInstallEntry *entry in self.installableSDKEntries) {
+        if (entry && entry.shouldInstall) {
+            [tmp addObject: entry];
+        }
+    }
+    return [tmp copy];
+}
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+
+    //static int filenameIndex = 0;
+    NSData *data = [NSData dataWithContentsOfURL:location];
+    //NSString *filename = ((MHSDKInstallEntry *)[self.installableSDKEntries objectAtIndex:filenameIndex]).name;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [data writeToFile:[MHUtils URLForDocumentsResource:@"tmp"] atomically:NO];
+    });
+}
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+
+    float progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        //[_progressBar setProgress:progress];
+
+    });
+}
 -(void)installSelectedSDKs {
-    
+    self.confirmInstallButton.inactive = YES;
+    NSArray *downloadTasks = [self allEntriesToDownload];
+
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+
+    for (MHSDKInstallEntry *entry in downloadTasks) {
+        UIProgressView *progressBar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        progressBar.translatesAutoresizingMaskIntoConstraints = false;
+        [entry.view addSubview:progressBar];
+        [progressBar.centerXAnchor constraintEqualToAnchor:entry.view.centerXAnchor].active = YES;
+        [NSLayoutConstraint constraintWithItem:progressBar
+                                attribute:NSLayoutAttributeCenterY
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:entry.view 
+                                attribute:NSLayoutAttributeCenterY
+                                multiplier:2.0f
+                                constant:0.f].active = YES;
+        [NSLayoutConstraint constraintWithItem:progressBar
+                                attribute:NSLayoutAttributeWidth
+                                relatedBy:NSLayoutRelationEqual
+                                toItem:entry.view 
+                                attribute:NSLayoutAttributeWidth
+                                multiplier:0.5f
+                                constant:0.f].active = YES;
+        NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:entry.SDKURL];
+        [downloadTask resume];
+        
+    }
 }
 @end
