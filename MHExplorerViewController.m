@@ -68,11 +68,6 @@
 	self.tableView.dataSource = self;
 
 	[self.view addSubview:self.tableView];
-
-	if (@available(iOS 13, *)) {
-		MHSDKInstallerController *installerController = [[MHSDKInstallerController alloc] init];
-		[self.navigationController presentViewController: installerController animated:YES completion:nil];
-	}
 }
 
 -(void)viewDidLoad {

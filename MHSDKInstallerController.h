@@ -13,4 +13,5 @@
 -(void)downloadSDKListIfNecessary;
 -(void)downloadSDKList;
 -(void)updateSDKViews;
+-(void)installSelectedSDKs;
 @end

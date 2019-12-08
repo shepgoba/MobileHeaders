@@ -8,10 +8,13 @@
 }
 
 -(void)themeDidChange {
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"darkModeEnabled"]) {
         self.navigationBar.barStyle = UIBarStyleBlack;
     } else {
         self.navigationBar.barStyle = UIBarStyleDefault;
     }
+    self.navigationBarHidden = YES;
+    self.navigationBarHidden = NO;
 }
 @end

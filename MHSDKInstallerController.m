@@ -14,7 +14,7 @@
             NSLog(@"error");
             return;
         }
-        int final = 20 + (i*75);
+        int final = 20 + (i*65);
         MHSDKInstallEntry *entry = [[MHSDKInstallEntry alloc] initWithDictionary:dict];
         [self.installableSDKEntries addObject: entry];
         
@@ -117,11 +117,11 @@
 }
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    [self themeDidChange];
 
     self.headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.headerLabel.text = @"Download SDK Headers";
-    self.headerLabel.textColor = [UIColor blackColor];
+    self.headerLabel.textColor = self.darkTheme ? [UIColor whiteColor] : [UIColor blackColor];
     self.headerLabel.font = [UIFont boldSystemFontOfSize:30];
     [self.headerLabel sizeToFit];
 
@@ -129,7 +129,7 @@
     self.installContainerView.layer.cornerRadius = 20;
 
     self.installScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    self.installScrollView.backgroundColor = UICOLORMAKE(235, 235, 235);
+    self.installScrollView.backgroundColor = self.darkTheme ? UICOLORMAKE(50, 50, 50) : UICOLORMAKE(235, 235, 235);
     self.installScrollView.layer.cornerRadius = 20;
     self.installScrollView.minimumZoomScale = 1;
     self.installScrollView.scrollEnabled = YES;
@@ -139,6 +139,9 @@
     self.confirmInstallButton.layer.cornerRadius = 15;
     self.confirmInstallButton.translatesAutoresizingMaskIntoConstraints = false;
     self.confirmInstallButton.backgroundColor = UICOLORMAKE(22, 219, 22);
+
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(installSelectedSDKs)];
+    [self.confirmInstallButton addGestureRecognizer:singleFingerTap];
 
     UILabel *confirmInstallButtonText = [[UILabel alloc] init];
     confirmInstallButtonText.translatesAutoresizingMaskIntoConstraints = false;
@@ -250,5 +253,9 @@
     
 
     [self downloadSDKListIfNecessary];
+}
+
+-(void)installSelectedSDKs {
+    
 }
 @end

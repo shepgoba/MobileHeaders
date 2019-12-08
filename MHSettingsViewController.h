@@ -1,5 +1,5 @@
 #import "MHViewController.h"
-
+#import "MHSDKInstallerController.h"
 @interface MHSettingsViewController : MHViewController <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, assign, readonly) int settingsCellCount;
 @property (nonatomic, strong, readonly) NSString *cellIdentifier;

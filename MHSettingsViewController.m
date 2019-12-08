@@ -1,4 +1,5 @@
 #import "MHSettingsViewController.h"
+
 @implementation MHSettingsViewController
 -(id)init {
     if ((self = [super init])) {
@@ -18,6 +19,13 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.entries count];
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+	if (indexPath.row == 1) {
+		MHSDKInstallerController *installerController = [[MHSDKInstallerController alloc] init];
+		[self.navigationController presentViewController: installerController animated:YES completion:nil];
+    }
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	cell.textLabel.text = self.entries[indexPath.row];
@@ -53,7 +61,7 @@
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.allowsSelection = NO;
+    //self.tableView.allowsSelection = NO;
     self.tableView.alwaysBounceVertical = NO;
 
     self.darkModeSwitch = [[UISwitch alloc] init];

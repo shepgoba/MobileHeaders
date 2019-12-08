@@ -36,5 +36,7 @@
     } else {
         self.tabBar.barStyle = UIBarStyleDefault;
     }
+    [self.tabBar layoutIfNeeded];
+    //[self.view layoutIfNeeded];
 }
 @end

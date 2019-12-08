@@ -6,7 +6,8 @@
 -(id)initWithEntry:(MHSDKInstallEntry *)entry {
     if ((self = [super init])) {
         self.entry = entry;
-        self.backgroundColor = UICOLORMAKE(220, 220, 220);
+        
+        self.backgroundColor = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkModeEnabled"] ? UICOLORMAKE(80, 80 ,80) : UICOLORMAKE(220, 220, 220);
         self.layer.cornerRadius = 20;
     }
 
@@ -19,16 +20,21 @@
 
 -(void)setup {
     self.versionLabel = [[UILabel alloc] init];
-    self.versionLabel.textColor = [UIColor blackColor];
+    self.versionLabel.textColor = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkModeEnabled"] ? [UIColor whiteColor] : [UIColor blackColor];
     self.versionLabel.font = [UIFont boldSystemFontOfSize:15];
     self.versionLabel.text = self.entry.name;
     [self.versionLabel sizeToFit];
 
     self.shouldInstallSwitch = [[UISwitch alloc] init];
     self.shouldInstallSwitch.on = NO;
+    [self.shouldInstallSwitch addTarget:self action:@selector(switchValueChanged) forControlEvents:UIControlEventValueChanged];
 
     [self addSubview:self.shouldInstallSwitch];
     [self addSubview:self.versionLabel];
     
+}
+
+-(void)switchValueChanged {
+    self.entry.shouldInstall = self.shouldInstallSwitch.on;
 }
 @end
