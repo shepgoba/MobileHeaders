@@ -1,0 +1,50 @@
+/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/armv7/./LzmaSDK_ObjC/lzma/CPP/Windows/PropVariant.cpp.34b238e0.o: \
+  LzmaSDK_ObjC/lzma/CPP/Windows/PropVariant.cpp \
+  /Users/baapcgaming/theos/Prefix.pch \
+  LzmaSDK_ObjC/lzma/CPP/Windows/StdAfx.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/Common.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/../../C/Compiler.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyWindows.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/../../../src/LzmaAppleCommon.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyGuidDef.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyTypes.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/../../C/7zTypes.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/../../C/../../src/LzmaAppleCommon.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/NewHandler.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../../../src/LzmaAppleCommon.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/Defs.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/PropVariant.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyString.h \
+  LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyVector.h
+
+/Users/baapcgaming/theos/Prefix.pch:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/StdAfx.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/Common.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/../../C/Compiler.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyWindows.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/../../../src/LzmaAppleCommon.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyGuidDef.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyTypes.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/../../C/7zTypes.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/../../C/../../src/LzmaAppleCommon.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/NewHandler.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../../../src/LzmaAppleCommon.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/Defs.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/PropVariant.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyString.h:
+
+LzmaSDK_ObjC/lzma/CPP/Windows/../Common/MyVector.h:

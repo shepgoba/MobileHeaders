@@ -1,0 +1,167 @@
+/Users/baapcgaming/tweaks/mobileheaders/.theos/obj/debug/armv7/./LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zRegister.cpp.34b238e0.o: \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zRegister.cpp \
+  /Users/baapcgaming/theos/Prefix.pch \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/StdAfx.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/Common.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/../../C/Compiler.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyWindows.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/../../../src/LzmaAppleCommon.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyGuidDef.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyTypes.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/../../C/7zTypes.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/../../C/../../src/LzmaAppleCommon.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/NewHandler.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../../../src/LzmaAppleCommon.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/RegisterArc.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../Archive/IArchive.h \
+  /Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/Archive/../IProgress.h \
+  /Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/../Common/MyTypes.h \
+  /Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/IDecl.h \
+  /Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/../Common/MyUnknown.h \
+  /Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/Archive/../IStream.h \
+  /Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/../Common/MyWindows.h \
+  /Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/Archive/../PropID.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zHandler.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../ICoder.h \
+  /Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/IStream.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../IArchive.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/CreateCoder.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/MyCom.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/MyString.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyVector.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../ICoder.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/MethodId.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/MyTypes.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../Common/HandlerOut.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../Common/../../Common/MethodProps.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/Defs.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/Defs.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/../Common/MyWindows.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/PropVariant.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/../Common/MyTypes.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/../Common/MyString.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zCompressionMode.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/MethodProps.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zIn.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyCom.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Windows/PropVariant.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../IPassword.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../IStream.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/InBuffer.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/MyException.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../IStream.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zItem.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyBuffer.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/Defs.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyString.h \
+  LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zHeader.h
+
+/Users/baapcgaming/theos/Prefix.pch:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/StdAfx.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/Common.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/../../C/Compiler.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyWindows.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/../../../src/LzmaAppleCommon.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyGuidDef.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyTypes.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/../../C/7zTypes.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/../../C/../../src/LzmaAppleCommon.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/NewHandler.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../../../src/LzmaAppleCommon.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/RegisterArc.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../Archive/IArchive.h:
+
+/Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/Archive/../IProgress.h:
+
+/Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/../Common/MyTypes.h:
+
+/Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/IDecl.h:
+
+/Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/../Common/MyUnknown.h:
+
+/Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/Archive/../IStream.h:
+
+/Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/../Common/MyWindows.h:
+
+/Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/Archive/../PropID.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zHandler.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../ICoder.h:
+
+/Users/baapcgaming/tweaks/mobileheaders/LzmaSDK_ObjC/lzma/CPP/7zip/IStream.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../IArchive.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/CreateCoder.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/MyCom.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/MyString.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyVector.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../ICoder.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/MethodId.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/MyTypes.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../Common/HandlerOut.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../Common/../../Common/MethodProps.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/Defs.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/Defs.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/../Common/MyWindows.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/PropVariant.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/../Common/MyTypes.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Windows/../Common/MyString.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zCompressionMode.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/MethodProps.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zIn.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyCom.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Windows/PropVariant.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../IPassword.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../IStream.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/InBuffer.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../../Common/MyException.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../Common/../IStream.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zItem.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyBuffer.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/Defs.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/../../../Common/MyString.h:
+
+LzmaSDK_ObjC/lzma/CPP/7zip/Archive/7z/7zHeader.h:

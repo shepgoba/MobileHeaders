@@ -1,6 +1,5 @@
 Package: com.shepgoba.mobileheaders
 Name: MobileHeaders
-Depends: p7zip
 Version: 1.0
 Architecture: iphoneos-arm
 Description: An easy way to navigate header files on your iDevice.
