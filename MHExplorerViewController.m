@@ -7,6 +7,7 @@
 		_cellIdentifier = @"MHCell";
 		if (!url) {
 			self.directoryURL = [NSURL URLWithString:[MHUtils URLForDocumentsResource:@"Data"]];
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SDKWasInstalled) name:@"MHThemeDidChange" object:nil];
 			[[NSFileManager defaultManager] createDirectoryAtPath:[self.directoryURL absoluteString] withIntermediateDirectories:YES attributes:nil error:nil];
 		} else {
 			self.directoryURL = url;
@@ -14,7 +15,9 @@
 	}
 	return self;
 }
-
+-(void)SDKWasInstalled {
+	[self.tableView reloadData];
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return self.entries.count;
 }

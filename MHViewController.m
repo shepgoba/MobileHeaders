@@ -9,7 +9,10 @@ static BOOL darkTheme = 0;
     }
     return self;
 }
-
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    [self themeDidChange];
+}
 -(BOOL)darkTheme {
     return darkTheme;
 }

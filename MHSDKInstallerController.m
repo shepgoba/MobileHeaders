@@ -10,7 +10,8 @@
     NSArray *versions = self.SDKList[@"versions"];
     int versionCount = [versions count];
     int i = 0;
-    self.installScrollView.contentSize = CGSizeMake(self.installScrollView.frame.size.width, versionCount*100);
+
+    self.installScrollView.contentSize = CGSizeMake(self.installScrollView.frame.size.width, versionCount*65+20);
     for (NSDictionary *dict in versions) {
         if (!dict) {            
             NSLog(@"error");
@@ -242,15 +243,13 @@
                                 attribute:NSLayoutAttributeWidth
                                 multiplier:1.0f
                                 constant:0.f].active = YES;
-
     [NSLayoutConstraint constraintWithItem:self.installContainerView
                                 attribute:NSLayoutAttributeHeight
                                 relatedBy:NSLayoutRelationEqual
-                                toItem:self.installScrollView  
+                                toItem:self.installScrollView 
                                 attribute:NSLayoutAttributeHeight
-                                multiplier:1.0f
+                                multiplier:1.25f
                                 constant:0.f].active = YES;
-
 
     
 
@@ -347,28 +346,34 @@ float MB(int bytes) {
 }
 
 -(void)decompressFiles {
-    self.reader = [[LzmaSDKObjCReader alloc] initWithFileURL:[NSURL fileURLWithPath:[MHUtils URLForDocumentsResource:@"iOS7.0-headers.7z"]] andType:LzmaSDKObjCFileType7z];
-    NSError *error;
-    if(![self.reader open:&error]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
-                               message:[error description]
-                               preferredStyle:UIAlertControllerStyleAlert];
-            
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
-            
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    });
-    }
-    NSMutableArray *items = [[NSMutableArray alloc] init];
-
-    [self.reader iterateWithHandler:^BOOL(LzmaSDKObjCItem * item, NSError * error){
-        if (item) {
-            [items addObject:item];
+    for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
+        NSString *fileName = [self.SDKURL.absoluteString lastPathComponent];
+        self.reader = [[LzmaSDKObjCReader alloc] initWithFileURL:[NSURL fileURLWithPath:[MHUtils URLForDocumentsResource:fileName] andType:LzmaSDKObjCFileType7z];
+        NSError *error;
+        if(![self.reader open:&error]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                message:[error description]
+                                preferredStyle:UIAlertControllerStyleAlert];
+                
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+                
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        });
         }
-        return YES;
-    }];
-    [self.reader extract:items toPath:[MHUtils URLForDocumentsResource:@"Data/iOS7"] withFullPaths:YES];
+        NSMutableArray *items = [[NSMutableArray alloc] init];
+
+        [self.reader iterateWithHandler:^BOOL(LzmaSDKObjCItem * item, NSError * error){
+            if (item) {
+                [items addObject:item];
+            }
+            return YES;
+        }];
+        [self.reader extract:items toPath:[MHUtils URLForDocumentsResource:@"Data"] withFullPaths:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MHSDKWasInstalled" object:nil];
+
+        [[NSFileManager defaultManager] removeItemAtPath:fileName error:nil];
+    }
 }
 @end

@@ -10,11 +10,10 @@ APPLICATION_NAME = MobileHeaders
 
 MobileHeaders_FILES = $(call rwildcard,.,*.m) $(call rwildcard,.,*.cpp) $(call rwildcard,.,*.mm) $(call rwildcard,.,*.c)
 MobileHeaders_FRAMEWORKS = UIKit
-MobileHeaders_CFLAGS += -fobjc-arc -Wno-everything -std=c++11 -fpic -Wno-deprecated-declarations
+MobileHeaders_LIBRARIES = LzmaSDKObjC
+MobileHeaders_CFLAGS += -fobjc-arc -Wno-deprecated-declarations
 
 include $(THEOS_MAKE_PATH)/application.mk
 
 after-install::
 	install.exec "killall \"MobileHeaders\"" || true
-#all:
-	#clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk -framework Foundation -framework UIKit -l"c++" -fobjc-arc -arch arm64 -fpic $(call rwildcard,.,*.m) $(call rwildcard,.,*.cpp) $(call rwildcard,.,*.mm) $(call rwildcard,.,*.c) -o data

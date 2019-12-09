@@ -10,5 +10,6 @@
 @property (nonatomic, strong) NSMutableArray *entries;
 @property (nonatomic, strong) NSURL *directoryURL;
 -(void)loadEntries;
+-(void)SDKWasInstalled;
 -(id)initWithURL:(NSURL *)url;
 @end

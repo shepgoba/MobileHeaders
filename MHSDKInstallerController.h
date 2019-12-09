@@ -2,7 +2,7 @@
 #import "MHSDKInstallableView.h"
 #import "MHSDKInstallEntry.h"
 #import "MHSDKConfirmInstallView.h"
-#import "MHDownloadTaskDelegate.h"
+#import "MHSDKInstallTaskDelegate.h"
 #import "MHUtils.h"
 
 #import <LzmaSDKObjC/LzmaSDKObjCReader.h>
