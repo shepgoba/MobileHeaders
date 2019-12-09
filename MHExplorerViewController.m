@@ -45,6 +45,12 @@
 	if (!cell) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:_cellIdentifier];
 	}
+	if (self.darkTheme) {
+        cell.textLabel.textColor = [UIColor whiteColor];
+    } else {
+       cell.textLabel.textColor = [UIColor blackColor];
+	}
+	cell.backgroundColor = [UIColor clearColor];
 	return cell;
 }
 -(void)loadEntries {

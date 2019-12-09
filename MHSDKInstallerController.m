@@ -284,8 +284,7 @@
         [self decompressFiles];
     }
 }
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
-}
+
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
@@ -347,8 +346,8 @@ float MB(int bytes) {
 
 -(void)decompressFiles {
     for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
-        NSString *fileName = [self.SDKURL.absoluteString lastPathComponent];
-        self.reader = [[LzmaSDKObjCReader alloc] initWithFileURL:[NSURL fileURLWithPath:[MHUtils URLForDocumentsResource:fileName] andType:LzmaSDKObjCFileType7z];
+        NSString *fileName = [entry.SDKURL.absoluteString lastPathComponent];
+        self.reader = [[LzmaSDKObjCReader alloc] initWithFileURL:[NSURL fileURLWithPath:[MHUtils URLForDocumentsResource:fileName]] andType:LzmaSDKObjCFileType7z];
         NSError *error;
         if(![self.reader open:&error]) {
             dispatch_async(dispatch_get_main_queue(), ^{

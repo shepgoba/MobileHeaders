@@ -1,4 +1,5 @@
 #import "MHSDKInstallEntry.h"
+
 @implementation MHSDKInstallEntry
 -(id)initWithDictionary:(NSDictionary *)dict {
     if ((self = [super init])) {
