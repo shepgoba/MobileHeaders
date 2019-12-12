@@ -4,7 +4,7 @@
   /Users/baapcgaming/theos/vendor/include/_Prefix/IOSMacros.h \
   /Users/baapcgaming/theos/vendor/include/HBLog.h \
   /Users/baapcgaming/theos/vendor/include/CoreFoundation/CFLogUtilities.h \
-  MHHeaderViewController.h MHViewController.h MHTableEntry.h
+  MHHeaderViewController.h MHViewController.h MHUtils.h MHTableEntry.h
 
 /Users/baapcgaming/theos/Prefix.pch:
 
@@ -19,5 +19,7 @@
 MHHeaderViewController.h:
 
 MHViewController.h:
+
+MHUtils.h:
 
 MHTableEntry.h:
