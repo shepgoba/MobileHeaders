@@ -1,7 +1,7 @@
 #import "MHSDKInstallerController.h"
 #include <dlfcn.h>
 
-#define ALERT(str) [[[UIAlertView alloc] initWithTitle:@"cummy" message:str delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
+#define ALERT(str) [[[UIAlertView alloc] initWithTitle:@"Alert" message:str delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
 #define UICOLORMAKE(r, g, b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1]
 @implementation MHSDKInstallerController
 -(void)updateSDKViews {
@@ -265,38 +265,6 @@
     }
     self.allEntriesToDownload = [tmp copy];
 }
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
-    self.filesDownloaded++;
-    NSString *fileName = [downloadTask.originalRequest.URL.absoluteString lastPathComponent];
-    for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
-        if ([entry.SDKURL.absoluteString isEqualToString: downloadTask.originalRequest.URL.absoluteString]) {
-                [self.allFilesToDecompress addObject:fileName];
-                [entry.view.progressBar setHidden:YES];
-
-        }
-    }
-    NSData *data = [NSData dataWithContentsOfURL:location];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [data writeToFile:[MHUtils URLForDocumentsResource:fileName] atomically:NO];
-    });
-
-    if (self.filesDownloaded == self.allEntriesToDownload.count) {
-        [self decompressFiles];
-    }
-}
-
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
-
-    float progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
-            if ([entry.SDKURL.absoluteString isEqualToString: downloadTask.originalRequest.URL.absoluteString])
-                [entry.view.progressBar setProgress:progress];
-        }
-
-    });
-}
 float MB(int bytes) {
     return ((float)bytes / (1024.f * 1024.f));
 }
@@ -328,51 +296,23 @@ float MB(int bytes) {
 }
 
 -(void) installSelectedSDKs {
-    self.filesDownloaded = 0;
-    //MHDownloadTaskDelegate *entryDelegate = [[MHDownloadTaskDelegate alloc] initWithEntry];
-    
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+    self.installTasks = [[NSMutableArray alloc] init];
 
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
+        MHSDKInstallTaskDelegate *newTask = [[MHSDKInstallTaskDelegate alloc] initWithEntry:entry controller:self];
+        [self.installTasks addObject:newTask];
         [entry.view setupProgressBar];
+
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:newTask delegateQueue:nil];
         NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:entry.SDKURL];
         [downloadTask resume];
         
     }
-    self.allFilesToDecompress = [[NSMutableArray alloc] init];
     [self.confirmInstallButton setActive:YES];
 }
 
 -(void)decompressFiles {
-    for (MHSDKInstallEntry *entry in self.allEntriesToDownload) {
-        NSString *fileName = [entry.SDKURL.absoluteString lastPathComponent];
-        self.reader = [[LzmaSDKObjCReader alloc] initWithFileURL:[NSURL fileURLWithPath:[MHUtils URLForDocumentsResource:fileName]] andType:LzmaSDKObjCFileType7z];
-        NSError *error;
-        if(![self.reader open:&error]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
-                                message:[error description]
-                                preferredStyle:UIAlertControllerStyleAlert];
-                
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
-                
-            [alert addAction:defaultAction];
-            [self presentViewController:alert animated:YES completion:nil];
-        });
-        }
-        NSMutableArray *items = [[NSMutableArray alloc] init];
-
-        [self.reader iterateWithHandler:^BOOL(LzmaSDKObjCItem * item, NSError * error){
-            if (item) {
-                [items addObject:item];
-            }
-            return YES;
-        }];
-        [self.reader extract:items toPath:[MHUtils URLForDocumentsResource:@"Data"] withFullPaths:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"MHSDKWasInstalled" object:nil];
-
-        [[NSFileManager defaultManager] removeItemAtPath:fileName error:nil];
-    }
+    /**/
 }
 @end

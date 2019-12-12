@@ -7,7 +7,7 @@
 
 #import <LzmaSDKObjC/LzmaSDKObjCReader.h>
 
-@interface MHSDKInstallerController : MHViewController <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
+@interface MHSDKInstallerController : MHViewController
 @property (nonatomic, strong) NSDictionary *SDKList;
 @property (nonatomic, strong) UILabel *headerLabel;
 @property (nonatomic, strong) UIView *installContainerView;
@@ -15,10 +15,8 @@
 @property (nonatomic, strong) MHSDKConfirmInstallView *confirmInstallButton;
 @property (nonatomic, strong) NSMutableArray *installableSDKEntries;
 @property (nonatomic, strong) NSMutableArray *installableSDKViews;
-@property (nonatomic, strong) NSMutableArray *allFilesToDecompress;
 @property (nonatomic, strong) NSArray *allEntriesToDownload;
-@property (nonatomic, strong) LzmaSDKObjCReader *reader;
-@property (nonatomic, assign) int filesDownloaded;
+@property (nonatomic, strong) NSMutableArray *installTasks;
 -(void)decompressFiles;
 -(void)findAllEntriesToDownload;
 -(void)downloadSDKListIfNecessary;

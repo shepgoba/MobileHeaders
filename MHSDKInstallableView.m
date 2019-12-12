@@ -58,4 +58,8 @@
 -(void)switchValueChanged {
     self.entry.shouldInstall = self.shouldInstallSwitch.on;
 }
+-(void)updateForDecompression {
+    [self.progressBar setProgress:0];
+    self.progressBar.progressTintColor = UICOLORMAKE(54, 232, 42);
+}
 @end

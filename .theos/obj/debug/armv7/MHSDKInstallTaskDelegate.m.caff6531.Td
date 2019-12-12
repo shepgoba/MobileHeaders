@@ -4,7 +4,8 @@
   /Users/baapcgaming/theos/vendor/include/_Prefix/IOSMacros.h \
   /Users/baapcgaming/theos/vendor/include/HBLog.h \
   /Users/baapcgaming/theos/vendor/include/CoreFoundation/CFLogUtilities.h \
-  MHSDKInstallTaskDelegate.h MHSDKInstallEntry.h \
+  MHSDKInstallTaskDelegate.h MHSDKInstallEntry.h MHSDKInstallableView.h \
+  MHUtils.h \
   /Users/baapcgaming/theos/include/LzmaSDKObjC/LzmaSDKObjCReader.h \
   /Users/baapcgaming/theos/include/LzmaSDKObjC/LzmaSDKObjCTypes.h \
   /Users/baapcgaming/theos/include/LzmaSDKObjC/LzmaSDKObjCItem.h \
@@ -25,6 +26,10 @@
 MHSDKInstallTaskDelegate.h:
 
 MHSDKInstallEntry.h:
+
+MHSDKInstallableView.h:
+
+MHUtils.h:
 
 /Users/baapcgaming/theos/include/LzmaSDKObjC/LzmaSDKObjCReader.h:
 

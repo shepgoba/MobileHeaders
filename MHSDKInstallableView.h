@@ -8,4 +8,5 @@
 -(void)setupProgressBar;
 -(void)switchValueChanged;
 -(void)setup;
+-(void)updateForDecompression;
 @end
