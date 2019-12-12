@@ -64,6 +64,10 @@
 	</array>
 	<key>UILaunchImageFile</key>
 	<string>LaunchImage</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>RobotoMono-Regular.ttf</string>
+	</array>
 	<key>UILaunchImages</key>
 	<array>
 		<dict>

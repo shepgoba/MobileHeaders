@@ -6,6 +6,14 @@
         "*.wxss": "css",
         "*.wxs": "javascript",
         "__locale": "cpp",
-        "locale": "cpp"
+        "locale": "cpp",
+        "__functional_03": "cpp",
+        "__string": "cpp",
+        "functional": "cpp",
+        "string": "cpp",
+        "system_error": "cpp",
+        "vector": "cpp",
+        "*.tcc": "cpp",
+        "array": "cpp"
     }
 }

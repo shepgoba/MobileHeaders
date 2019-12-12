@@ -1,5 +1,6 @@
 #import "MHSDKInstallEntry.h"
 #import "MHSDKInstallableView.h"
+#import "MHSDKInstallerController.h"
 #import "MHUtils.h"
 #import <LzmaSDKObjC/LzmaSDKObjCReader.h>
 

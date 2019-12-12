@@ -6,7 +6,6 @@
 @property (nonatomic, strong) NSString *iosVersion;
 @property (nonatomic, strong) NSURL *SDKURL;
 @property (nonatomic, weak) MHSDKInstallableView *view;
-@property (nonatomic, weak) id<MHSDKInstallTaskDelegate> delegate;
 @property (nonatomic, assign) BOOL shouldInstall;
 @property (nonatomic, assign) int size;
 @property (nonatomic, assign) int installedSize;

@@ -38,15 +38,15 @@
     NSError *error;
     if(![self.lzmaReader open:&error]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
-                            message:[error description]
-                            preferredStyle:UIAlertControllerStyleAlert];
-            
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                message:[error description]
+                                preferredStyle:UIAlertControllerStyleAlert];
                 
-        [alert addAction:defaultAction];
-        [(UIViewController *)(self.controller)presentViewController:alert animated:YES completion:nil];
-    });
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+                    
+            [alert addAction:defaultAction];
+            [(UIViewController *)(self.controller)presentViewController:alert animated:YES completion:nil];
+        });
     }
     NSMutableArray *items = [[NSMutableArray alloc] init];
 
@@ -60,5 +60,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MHSDKWasInstalled" object:nil];
 
     [[NSFileManager defaultManager] removeItemAtPath:[MHUtils URLForDocumentsResource:fileName] error:nil];
+
+    self.controller.installedSDKs[self.entry.iosVersion] = @YES;
 }
 @end

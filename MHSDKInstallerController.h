@@ -17,11 +17,13 @@
 @property (nonatomic, strong) NSMutableArray *installableSDKViews;
 @property (nonatomic, strong) NSArray *allEntriesToDownload;
 @property (nonatomic, strong) NSMutableArray *installTasks;
--(void)decompressFiles;
+@property (nonatomic, strong) NSMutableDictionary *installedSDKs;
+@property (nonatomic, assign) int installTaskCount;
 -(void)findAllEntriesToDownload;
 -(void)downloadSDKListIfNecessary;
 -(void)downloadSDKList;
 -(void)updateSDKViews;
 -(void)confirmInstallSelectedSDKs;
 -(void)installSelectedSDKs;
+-(void)allInstallTasksCompleted;
 @end

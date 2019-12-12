@@ -4,7 +4,42 @@
 #define ALERT(str) [[[UIAlertView alloc] initWithTitle:@"Alert" message:str delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
 #define UICOLORMAKE(r, g, b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1]
 @implementation MHSDKInstallerController
+-(id)init {
+    if ((self = [super init])) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                         selector:@selector(installTaskFinished)
+                                             name:@"MHSDKWasInstalled" 
+                                           object:nil];
+    }
+    return self;
+}
+-(void)installTaskFinished {
+    static int currentInstallCount = 0;
+    currentInstallCount++;
+    if (currentInstallCount >= self.installTaskCount) {
+        [self allInstallTasksCompleted];
+    }
+}
+
+-(void)allInstallTasksCompleted {
+    [[NSFileManager defaultManager] removeItemAtPath:[MHUtils URLForDocumentsResource:@"installedSDKs.plist"] error:nil];
+    [self.installedSDKs writeToFile:[MHUtils URLForDocumentsResource:@"cummy.plist"] atomically:NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ALERT([self.installedSDKs description]);
+    });
+}
+
 -(void)updateSDKViews {
+    if (!self.installedSDKs) {
+        ALERT(@"oof");
+        self.installedSDKs = [[NSMutableDictionary alloc] init];
+        for (NSDictionary *dict in self.SDKList[@"versions"]) {
+            NSString *key = dict[@"ios-version"];
+            self.installedSDKs[key] = @NO;
+        }
+        [[NSFileManager defaultManager] removeItemAtPath:[MHUtils URLForDocumentsResource:@"installedSDKs.plist"] error:nil];
+        [self.installedSDKs writeToFile:[MHUtils URLForDocumentsResource:@"installedSDKs.plist"] atomically:NO];
+    }
     self.installableSDKViews = [[NSMutableArray alloc] init];
     self.installableSDKEntries = [[NSMutableArray alloc] init];
     NSArray *versions = self.SDKList[@"versions"];
@@ -82,12 +117,13 @@
 -(void)downloadSDKListIfNecessary {
     NSString *fileName = [MHUtils URLForDocumentsResource:@"SDKList.plist"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:fileName isDirectory:0]) {
-        self.SDKList = [NSDictionary dictionaryWithContentsOfFile:fileName];
+        self.SDKList = [NSMutableDictionary dictionaryWithContentsOfFile:fileName];
         [self updateSDKViews];
         return;
     }
     [self downloadSDKList];
 }
+
 -(void)downloadSDKList {
     static NSString *stringURL = @"https://raw.githubusercontent.com/shepgoba/shepgoba.github.io/master/mobileheaders/sdks.plist";
     NSString *fileName = [MHUtils URLForDocumentsResource:@"SDKList.plist"];
@@ -250,9 +286,7 @@
                                 attribute:NSLayoutAttributeHeight
                                 multiplier:1.25f
                                 constant:0.f].active = YES;
-
-    
-
+    self.installedSDKs = [NSMutableDictionary dictionaryWithContentsOfFile:[MHUtils URLForDocumentsResource:@"installedSDKs.plist"]];
     [self downloadSDKListIfNecessary];
 }
 
@@ -271,8 +305,10 @@ float MB(int bytes) {
 -(void)confirmInstallSelectedSDKs {
     [self.confirmInstallButton setActive:NO];
     self.allEntriesToDownload = [[NSMutableArray alloc] init];
-    [self findAllEntriesToDownload];
 
+    [self findAllEntriesToDownload];
+    self.installTaskCount = self.allEntriesToDownload.count;
+        
     int totalDownloadSize = 0;
     int totalDiskUsage = 0;
 
@@ -310,9 +346,5 @@ float MB(int bytes) {
         
     }
     [self.confirmInstallButton setActive:YES];
-}
-
--(void)decompressFiles {
-    /**/
 }
 @end
