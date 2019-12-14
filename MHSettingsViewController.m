@@ -24,7 +24,7 @@
 	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 	if (indexPath.row == 1) {
 		MHSDKInstallerController *installerController = [[MHSDKInstallerController alloc] init];
-		[self.navigationController presentViewController: installerController animated:YES completion:nil];
+		[self.navigationController pushViewController: installerController animated:YES];
     }
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

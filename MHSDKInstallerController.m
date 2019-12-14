@@ -79,22 +79,7 @@
                                     multiplier:1.f
                                     constant:final].active = YES;
         [installableSDKView setup];
-
-        installableSDKView.versionLabel.translatesAutoresizingMaskIntoConstraints = false;
-        [NSLayoutConstraint constraintWithItem:installableSDKView.versionLabel
-                                        attribute:NSLayoutAttributeCenterY
-                                        relatedBy:NSLayoutRelationEqual
-                                        toItem:installableSDKView  
-                                        attribute:NSLayoutAttributeCenterY
-                                        multiplier:1.f
-                                        constant:0.f].active = YES;
-        [NSLayoutConstraint constraintWithItem:installableSDKView.versionLabel
-                                        attribute:NSLayoutAttributeLeading
-                                        relatedBy:NSLayoutRelationEqual
-                                        toItem:installableSDKView  
-                                        attribute:NSLayoutAttributeLeading
-                                        multiplier:1.f
-                                        constant:15.f].active = YES;
+        
         installableSDKView.shouldInstallSwitch.translatesAutoresizingMaskIntoConstraints = false;
         [NSLayoutConstraint constraintWithItem:installableSDKView.shouldInstallSwitch
                                         attribute:NSLayoutAttributeCenterY
