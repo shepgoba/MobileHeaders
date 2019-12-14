@@ -16,6 +16,12 @@
 	}
 	return self;
 }
+
+-(void)themeDidChange {
+	[super themeDidChange];
+	self.searchController.searchBar.barStyle = self.darkTheme ? UIBarStyleBlack : UIBarStyleDefault;
+}
+
 -(void)SDKWasInstalled {
 	[self.tableView reloadData];
 }
@@ -93,7 +99,7 @@
 
 	self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 	self.searchController.delegate = self;
-	self.searchController.searchBar.barStyle = UIBarStyleBlack;
+	self.searchController.searchBar.barStyle = self.darkTheme ? UIBarStyleBlack : UIBarStyleDefault;
 	self.searchController.searchResultsUpdater = self;
 	self.searchController.hidesNavigationBarDuringPresentation = NO;
 	self.searchController.definesPresentationContext = YES;

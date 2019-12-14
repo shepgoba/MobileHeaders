@@ -98,5 +98,9 @@
 - (void) switchValueChanged {
     [[NSUserDefaults standardUserDefaults] setBool:self.darkModeSwitch.isOn forKey:@"darkModeEnabled"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MHThemeDidChange" object:nil];
+    if (self.darkModeSwitch.isOn)
+        [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+    else
+        [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceLight];
 }
 @end

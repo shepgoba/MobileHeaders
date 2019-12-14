@@ -10,10 +10,14 @@
         MHNavigationController *homeViewControllerNav = [[MHNavigationController alloc] initWithRootViewController:homeViewController];
         homeViewControllerNav.title = @"Home";
 
+        UIViewController *searchViewController = [[UIViewController alloc] init];
+        MHNavigationController *searchViewControllerNav = [[MHNavigationController alloc] initWithRootViewController:searchViewController];
+
         MHSettingsViewController *settingsViewController = [[MHSettingsViewController alloc] init];
         MHNavigationController *settingsViewControllerNav = [[MHNavigationController alloc] initWithRootViewController:settingsViewController];
         settingsViewControllerNav.title = @"Settings";
 
+        searchViewControllerNav.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:0];
         homeViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemRecents tag:0];
         settingsViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:0];
         /*if (@available(iOS 13, *)) {
@@ -22,7 +26,7 @@
             settingsViewControllerNav.navigationBar.scrollEdgeAppearance = barAppearance;
             homeViewControllerNav.navigationBar.scrollEdgeAppearance = barAppearance;
         }*/
-        NSArray* controllers = [NSArray arrayWithObjects:homeViewControllerNav, settingsViewControllerNav, nil];
+        NSArray* controllers = [NSArray arrayWithObjects:homeViewControllerNav, searchViewControllerNav, settingsViewControllerNav, nil];
         self.viewControllers = controllers;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:@"MHThemeDidChange" object:nil];

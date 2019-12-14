@@ -11,15 +11,18 @@
 	[_window makeKeyAndVisible];
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"HasLaunchedOnce"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+		
 		//NSFileManager *defaultManager = [NSFileManager defaultManager];
 		//[defaultManager createFileAtPath:[MHUtils URLForDocumentsResource:@"installedSDKs.plist"] contents:nil attributes:nil];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MHThemeDidChange" object:nil];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"darkModeEnabled"])
+        [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+    else
+        [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceLight];
 
 }
 

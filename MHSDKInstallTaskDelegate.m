@@ -57,10 +57,23 @@
         return YES;
     }];
     [self.lzmaReader extract:items toPath:[MHUtils URLForDocumentsResource:@"Data"] withFullPaths:YES];
+    if (self.lzmaReader.lastError) {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"An Error Occurred"
+                                message:@"Extraction failed. Try restarting the app."
+                                preferredStyle:UIAlertControllerStyleAlert];
+                
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+                    
+        [alert addAction:defaultAction];
+        [(UIViewController *)(self.controller)presentViewController:alert animated:YES completion:nil];
+        return;
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MHSDKWasInstalled" object:nil];
 
     [[NSFileManager defaultManager] removeItemAtPath:[MHUtils URLForDocumentsResource:fileName] error:nil];
 
-    self.controller.installedSDKs[self.entry.iosVersion] = @YES;
+    NSMutableDictionary *installedSDKs = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"installedSDKs"] mutableCopy];
+    installedSDKs[self.entry.iosVersion] = @YES;
+    [[NSUserDefaults standardUserDefaults] setObject:installedSDKs forKey:@"installedSDKs"];
 }
 @end
