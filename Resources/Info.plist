@@ -64,6 +64,8 @@
 	</array>
 	<key>UILaunchImageFile</key>
 	<string>LaunchImage</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>RobotoMono-Regular.ttf</string>

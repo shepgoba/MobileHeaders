@@ -34,6 +34,10 @@
     
 }
 -(void)setupProgressBar {
+    self.statusLabel = [[UILabel alloc] init];
+    self.statusLabel.textColor = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkModeEnabled"] ? [UIColor whiteColor] : [UIColor blackColor];
+    self.versionLabel.font = [UIFont boldSystemFontOfSize:12];
+    self.versionLabel.text = @"Downloading... (1/2)";
     self.progressBar = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     self.progressBar.progressTintColor = UICOLORMAKE(61, 255, 236);
     self.progressBar.trackTintColor = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkModeEnabled"] ? UICOLORMAKE(150, 150, 150) : UICOLORMAKE(38, 38, 38); 
@@ -60,6 +64,7 @@
 }
 -(void)updateForDecompression {
     [self.progressBar setProgress:0];
+    self.versionLabel.text = @"Extracting... (2/2)";
     self.progressBar.progressTintColor = UICOLORMAKE(54, 232, 42);
 }
 @end

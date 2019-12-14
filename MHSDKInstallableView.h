@@ -2,6 +2,7 @@
 @interface MHSDKInstallableView : UIView
 @property (nonatomic, strong) MHSDKInstallEntry *entry;
 @property (nonatomic, strong) UILabel *versionLabel;
+@property (nonatomic, strong) UILabel *statusLabel;
 @property (nonatomic, strong) UISwitch *shouldInstallSwitch;
 @property (nonatomic, strong) UIProgressView *progressBar;
 -(id)initWithEntry:(MHSDKInstallEntry *)entry;

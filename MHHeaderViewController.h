@@ -17,12 +17,15 @@
 #define kRegexHighlightViewTypeProject @"project"
 #define kRegexHighlightViewTypeOther @"other"
 
-@interface MHHeaderViewController : MHViewController
+@interface MHHeaderViewController : MHViewController <UITextViewDelegate>
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UIScrollView *lineNumbersView;
 @property (nonatomic, strong) NSAttributedString *formattedText;
-
-//Thanks qwertyuiop1379
+@property (nonatomic, strong) NSArray *contentLines;
+@property (nonatomic, assign) int lineCount;
 -(id)initWithURL:(NSURL *)url;
 -(NSAttributedString *)highlightText:(NSAttributedString *)attributedString;
+-(void)getLineCountForString:(NSString *)str;
+-(void)setupLineNumbers;
 @end

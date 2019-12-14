@@ -58,15 +58,15 @@
         
         MHSDKInstallableView *installableSDKView = [[MHSDKInstallableView alloc] initWithEntry:entry];
         [self.installableSDKViews addObject: installableSDKView];
-        [self.installContainerView addSubview: installableSDKView];
+        [self.installScrollView addSubview: installableSDKView];
         
         installableSDKView.translatesAutoresizingMaskIntoConstraints = false;
-        [installableSDKView.centerXAnchor constraintEqualToAnchor:self.installContainerView.centerXAnchor].active = YES;
+        [installableSDKView.centerXAnchor constraintEqualToAnchor:self.installScrollView.centerXAnchor].active = YES;
 
         [NSLayoutConstraint constraintWithItem:installableSDKView
                                     attribute:NSLayoutAttributeWidth
                                     relatedBy:NSLayoutRelationEqual
-                                    toItem:self.installContainerView  
+                                    toItem:self.installScrollView  
                                     attribute:NSLayoutAttributeWidth
                                     multiplier:0.9f
                                     constant:0.f].active = YES;
@@ -74,7 +74,7 @@
         [NSLayoutConstraint constraintWithItem:installableSDKView
                                     attribute:NSLayoutAttributeTop
                                     relatedBy:NSLayoutRelationEqual
-                                    toItem:self.installContainerView  
+                                    toItem:self.installScrollView  
                                     attribute:NSLayoutAttributeTop
                                     multiplier:1.f
                                     constant:final].active = YES;
@@ -223,10 +223,10 @@
 
     [self.view addSubview: self.headerLabel];
     [self.view addSubview: self.installScrollView];
-    [self.installScrollView addSubview: self.installContainerView];
+    //[self.installScrollView addSubview: self.installContainerView];
 
     self.headerLabel.translatesAutoresizingMaskIntoConstraints = false;
-    self.installContainerView.translatesAutoresizingMaskIntoConstraints = false;
+    //self.installContainerView.translatesAutoresizingMaskIntoConstraints = false;
     self.installScrollView.translatesAutoresizingMaskIntoConstraints = false;
 
     [self.headerLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
@@ -263,7 +263,7 @@
                                 multiplier:0.4f
                                 constant:0.f].active = YES;                      
 
-    [self.installContainerView.centerXAnchor constraintEqualToAnchor:self.installScrollView.centerXAnchor].active = YES;
+    /*[self.installContainerView.centerXAnchor constraintEqualToAnchor:self.installScrollView.centerXAnchor].active = YES;
     [NSLayoutConstraint constraintWithItem:self.installContainerView
                                 attribute:NSLayoutAttributeCenterY
                                 relatedBy:NSLayoutRelationEqual
@@ -285,7 +285,8 @@
                                 toItem:self.installScrollView 
                                 attribute:NSLayoutAttributeHeight
                                 multiplier:1.25f
-                                constant:0.f].active = YES;
+                                constant:0.f].active = YES;*/
+
     self.installedSDKs = [NSMutableDictionary dictionaryWithContentsOfFile:[MHUtils URLForDocumentsResource:@"installedSDKs.plist"]];
     [self downloadSDKListIfNecessary];
 }
