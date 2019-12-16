@@ -1,6 +1,7 @@
 #import "MHTabBarController.h"
 #import "MHExplorerViewController.h"
 #import "MHSettingsViewController.h"
+#import "MHSearchViewController.h"
 #import "MHNavigationController.h"
 @implementation MHTabBarController
 -(id)init {
@@ -10,7 +11,7 @@
         MHNavigationController *homeViewControllerNav = [[MHNavigationController alloc] initWithRootViewController:homeViewController];
         homeViewControllerNav.title = @"Home";
 
-        UIViewController *searchViewController = [[UIViewController alloc] init];
+        MHSearchViewController *searchViewController = [[MHSearchViewController alloc] init];
         MHNavigationController *searchViewControllerNav = [[MHNavigationController alloc] initWithRootViewController:searchViewController];
 
         MHSettingsViewController *settingsViewController = [[MHSettingsViewController alloc] init];
@@ -40,7 +41,7 @@
     } else {
         self.tabBar.barStyle = UIBarStyleDefault;
     }
-    [self.tabBar layoutIfNeeded];
-    [self.view layoutIfNeeded];
+    //[self.tabBar layoutIfNeeded];
+   // [self.view layoutIfNeeded];
 }
 @end

@@ -15,7 +15,7 @@
   /Users/baapcgaming/theos/include/LzmaSDKObjC/LzmaSDKObjCWriter.h \
   /Users/baapcgaming/theos/include/LzmaSDKObjC/LzmaSDKObjCMutableItem.h \
   MHTableEntry.h MHHeaderViewController.h MHSettingsViewController.h \
-  MHNavigationController.h
+  MHSearchViewController.h MHNavigationController.h
 
 /Users/baapcgaming/theos/Prefix.pch:
 
@@ -64,5 +64,7 @@ MHTableEntry.h:
 MHHeaderViewController.h:
 
 MHSettingsViewController.h:
+
+MHSearchViewController.h:
 
 MHNavigationController.h:
