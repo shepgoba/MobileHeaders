@@ -1,41 +1,7 @@
 #import "MHSearchViewController.h"
 
 @implementation MHSearchViewController
--(NSMutableArray *)recursiveSearchForFilesWithName:(NSString *)name startingURL:(NSURL *)url {
-    NSMutableArray *filteredEntries = [[NSMutableArray alloc] init];
 
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{    
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
-
-        NSDirectoryEnumerator *enumerator = [fileManager
-            enumeratorAtURL:url
-            includingPropertiesForKeys:keys
-            options:0
-            errorHandler:^(NSURL *url, NSError *error) {
-                // Handle the error.
-                // Return YES if the enumeration should continue after the error.
-                return YES;
-        }];
-
-        for (NSURL *url in enumerator) { 
-            NSError *error;
-            NSNumber *isDirectory = nil;
-            if (! [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
-                // handle error
-            }
-            else if (! [isDirectory boolValue]) {
-                // No error and it’s not a directory; do something with the file
-                NSString *fileName = url.absoluteString.lastPathComponent;
-                if ([fileName localizedCaseInsensitiveContainsString: name]) {
-                    MHTableEntry *entry = [[MHTableEntry alloc] initWithURL:url];
-                    [filteredEntries addObject: entry];
-                }
-            }
-        }
-    //});
-    return filteredEntries;
-}
 -(NSMutableArray *)contentsOfDirectory:(NSURL *)url {
     NSMutableArray *entries = [NSMutableArray new];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -52,6 +18,20 @@
 	//NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
 	//NSArray *entry = [entries sortedArrayUsingDescriptors:@[sortDescriptor]];
 	return entries;
+}
+- (NSMutableArray *)searchForFilesInIndexedList:(NSString *)query {
+	NSMutableArray *filteredEntries = [[NSMutableArray alloc] init];
+	NSArray *entries = [NSArray arrayWithContentsOfFile:[MHUtils URLForDocumentsResource:@"indexedFiles.dat"]];
+
+	for (NSString *file in entries) {
+		NSString *fileName = file.lastPathComponent;
+		if ([fileName localizedCaseInsensitiveContainsString: query]) {
+				NSURL *fileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [MHUtils URLForDocumentsResource:@""], file]];
+                MHTableEntry *entry = [[MHTableEntry alloc] initWithURL:fileURL];
+                [filteredEntries addObject: entry];
+        }
+	}
+	return filteredEntries;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -90,7 +70,7 @@
 	if (searchText && searchText.length > 0) {
 		//NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@", searchText];
 		//NSArray *newEntries = [self.entries filteredArrayUsingPredicate:predicate];
-		self.entries = [self recursiveSearchForFilesWithName:searchText startingURL:[NSURL fileURLWithPath:[MHUtils URLForDocumentsResource:@"Data"]]];
+		self.entries = [self searchForFilesInIndexedList:searchText];//[self recursiveSearchForFilesWithName:searchText startingURL:[NSURL fileURLWithPath:[MHUtils URLForDocumentsResource:@"Data"]]];
 	} else {
         self.entries = nil;
     }

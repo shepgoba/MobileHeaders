@@ -7,7 +7,7 @@
         self.iosVersion = dict[@"ios-version"];
         self.size = [dict[@"size"] intValue];
         self.installedSize = [dict[@"installed-size"] intValue];
-        self.saveLocation = [NSString stringWithFormat:@"%@/%@", [MHUtils URLForDocumentsResource:@"Data"], dict[@"save-location"]];
+        self.saveLocation = [NSString stringWithFormat:@"%@/%@", [MHUtils URLForDocumentsResource:@"HeaderData"], dict[@"save-location"]];
         self.SDKURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", @"https://raw.githubusercontent.com/shepgoba/shepgoba.github.io/master/mobileheaders/", dict[@"url"]]];
     }
 

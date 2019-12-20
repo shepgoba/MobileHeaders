@@ -6,7 +6,7 @@
 		_cellIdentifier = @"MHCell";
 		if (!url) {
 			self.title = @"Home";
-			self.directoryURL = [NSURL URLWithString:[MHUtils URLForDocumentsResource:@"Data"]];
+			self.directoryURL = [NSURL URLWithString:[MHUtils URLForDocumentsResource:@"HeaderData"]];
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SDKWasInstalled) name:@"MHSDKWasInstalled" object:nil];
 			[[NSFileManager defaultManager] createDirectoryAtPath:[self.directoryURL absoluteString] withIntermediateDirectories:YES attributes:nil error:nil];
 		} else {
@@ -79,6 +79,8 @@
                    				error:&error] mutableCopy];
 	for (NSURL *url in URLs) {
 		MHTableEntry *fileObject = [[MHTableEntry alloc] initWithURL:url];
+		if ([fileObject.name isEqual: @".DS_Store"])
+			continue;
 		[entries addObject:fileObject];
 	}
 	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];

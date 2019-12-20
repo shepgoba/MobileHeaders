@@ -1,5 +1,5 @@
 #import "MHSettingsViewController.h"
-
+#define ALERT(str) [[[UIAlertView alloc] initWithTitle:@"Alert" message:str delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
 @implementation MHSettingsViewController
 -(id)init {
     if ((self = [super init])) {
@@ -26,6 +26,40 @@
 		MHSDKInstallerController *installerController = [[MHSDKInstallerController alloc] init];
 		[self.navigationController pushViewController: installerController animated:YES];
     }
+    if (indexPath.row == 2) {
+        [self indexSDKHeaders];
+    }
+}
+- (void)indexSDKHeaders {
+    
+    NSMutableArray *files = [[NSMutableArray alloc] init];
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
+    NSString *urlString = [MHUtils URLForDocumentsResource:@"HeaderData"];
+    NSDirectoryEnumerator *enumerator = [fileManager
+        enumeratorAtURL:[NSURL URLWithString:urlString]
+        includingPropertiesForKeys:keys
+        options:0
+        errorHandler:nil];
+
+    for (NSURL *url in enumerator) { 
+        NSError *error;
+        NSNumber *isDirectory = nil;
+        if (![url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
+			UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Files could not be searched. Try again" preferredStyle:UIAlertControllerStyleAlert];
+			UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+			[errorAlert addAction:defaultAction];
+			[self presentViewController:errorAlert animated:YES completion:nil];
+        } else if (![isDirectory boolValue]) {
+            //NSString *fileName = url.absoluteString.lastPathComponent;
+            NSString *path = url.absoluteString;
+            NSUInteger index = [path rangeOfString:@"HeaderData"].location;
+            NSString *finalPath = [path substringFromIndex:index];
+            [files addObject:finalPath];
+        }
+    }
+    [files writeToFile:[MHUtils URLForDocumentsResource:@"indexedFiles.dat"] atomically:NO];
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	cell.textLabel.text = self.entries[indexPath.row];
@@ -52,7 +86,7 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.entries = [NSMutableArray arrayWithObjects: @"Dark Theme", @"Manage Installed SDKs", nil];
+    self.entries = [NSMutableArray arrayWithObjects: @"Dark Theme", @"Manage Installed SDKs", @"Index Headers", nil];
 
    
     self.view.backgroundColor = [UIColor whiteColor];

@@ -56,7 +56,7 @@
         }
         return YES;
     }];
-    [self.lzmaReader extract:items toPath:[MHUtils URLForDocumentsResource:@"Data"] withFullPaths:YES];
+    [self.lzmaReader extract:items toPath:[MHUtils URLForDocumentsResource:@"HeaderData"] withFullPaths:YES];
     if (self.lzmaReader.lastError) {
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"An Error Occurred"
                                 message:@"Extraction failed. Try restarting the app."

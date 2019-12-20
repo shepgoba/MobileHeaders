@@ -18,16 +18,16 @@
         MHNavigationController *settingsViewControllerNav = [[MHNavigationController alloc] initWithRootViewController:settingsViewController];
         settingsViewControllerNav.title = @"Settings";
 
+        homeViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Explore" image:[UIImage imageNamed:@"ExploreIcon.png"] tag:0];
         searchViewControllerNav.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:0];
-        homeViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemRecents tag:0];
-        settingsViewController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:0];
+        settingsViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"SettingsIcon.png"] tag:0];
         /*if (@available(iOS 13, *)) {
             UINavigationBarAppearance *barAppearance = [UINavigationBarAppearance new];
             [barAppearance configureWithDefaultBackground];
             settingsViewControllerNav.navigationBar.scrollEdgeAppearance = barAppearance;
             homeViewControllerNav.navigationBar.scrollEdgeAppearance = barAppearance;
         }*/
-        NSArray* controllers = [NSArray arrayWithObjects:homeViewControllerNav, searchViewControllerNav, settingsViewControllerNav, nil];
+        NSArray *controllers = [NSArray arrayWithObjects:homeViewControllerNav, searchViewControllerNav, settingsViewControllerNav, nil];
         self.viewControllers = controllers;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeDidChange) name:@"MHThemeDidChange" object:nil];

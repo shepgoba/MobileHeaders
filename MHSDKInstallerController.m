@@ -319,7 +319,7 @@ float MB(int bytes) {
 
 -(void)uninstallSDKsIfNecessary {
     for (MHSDKInstallEntry *entry in self.allEntriesToDelete) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             if([[NSFileManager defaultManager] removeItemAtPath:entry.saveLocation error:nil]) {
                 for (MHSDKInstallEntry *entry in self.allEntriesToDelete) {
                     [entry.view uninstallFinished];
