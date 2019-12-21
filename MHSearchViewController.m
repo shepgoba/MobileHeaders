@@ -25,7 +25,7 @@
 
 	for (NSString *file in entries) {
 		NSString *fileName = file.lastPathComponent;
-		if ([fileName localizedCaseInsensitiveContainsString: query]) {
+		if ([fileName hasPrefix: query]) {
 				NSURL *fileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [MHUtils URLForDocumentsResource:@""], file]];
                 MHTableEntry *entry = [[MHTableEntry alloc] initWithURL:fileURL];
                 [filteredEntries addObject: entry];
@@ -70,7 +70,9 @@
 	if (searchText && searchText.length > 0) {
 		//NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@", searchText];
 		//NSArray *newEntries = [self.entries filteredArrayUsingPredicate:predicate];
-		self.entries = [self searchForFilesInIndexedList:searchText];//[self recursiveSearchForFilesWithName:searchText startingURL:[NSURL fileURLWithPath:[MHUtils URLForDocumentsResource:@"Data"]]];
+		NSArray *entries = [self searchForFilesInIndexedList:searchText];
+		NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+		self.entries = [entries sortedArrayUsingDescriptors:@[sortDescriptor]];
 	} else {
         self.entries = nil;
     }

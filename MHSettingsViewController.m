@@ -27,40 +27,10 @@
 		[self.navigationController pushViewController: installerController animated:YES];
     }
     if (indexPath.row == 2) {
-        [self indexSDKHeaders];
+        [MHUtils indexHeadersAndPresentAlertOn:self];
     }
 }
-- (void)indexSDKHeaders {
-    
-    NSMutableArray *files = [[NSMutableArray alloc] init];
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
-    NSString *urlString = [MHUtils URLForDocumentsResource:@"HeaderData"];
-    NSDirectoryEnumerator *enumerator = [fileManager
-        enumeratorAtURL:[NSURL URLWithString:urlString]
-        includingPropertiesForKeys:keys
-        options:0
-        errorHandler:nil];
 
-    for (NSURL *url in enumerator) { 
-        NSError *error;
-        NSNumber *isDirectory = nil;
-        if (![url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error]) {
-			UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Files could not be searched. Try again" preferredStyle:UIAlertControllerStyleAlert];
-			UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-			[errorAlert addAction:defaultAction];
-			[self presentViewController:errorAlert animated:YES completion:nil];
-        } else if (![isDirectory boolValue]) {
-            //NSString *fileName = url.absoluteString.lastPathComponent;
-            NSString *path = url.absoluteString;
-            NSUInteger index = [path rangeOfString:@"HeaderData"].location;
-            NSString *finalPath = [path substringFromIndex:index];
-            [files addObject:finalPath];
-        }
-    }
-    [files writeToFile:[MHUtils URLForDocumentsResource:@"indexedFiles.dat"] atomically:NO];
-}
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	cell.textLabel.text = self.entries[indexPath.row];
     if (self.darkTheme) {
@@ -70,7 +40,7 @@
     }
     if (indexPath.row == 0) {
         cell.accessoryView = self.darkModeSwitch;
-    } else if (indexPath.row == 1) {
+    } else if (indexPath.row == 1 || indexPath.row == 2) {
         cell.textLabel.textColor = self.view.tintColor;
     }
 }

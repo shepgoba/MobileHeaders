@@ -9,7 +9,7 @@ SDKVERSION_armv7 = 11.2
 APPLICATION_NAME = MobileHeaders
 
 MobileHeaders_FILES = $(call rwildcard,.,*.m) $(call rwildcard,.,*.cpp) $(call rwildcard,.,*.mm) $(call rwildcard,.,*.c)
-MobileHeaders_FRAMEWORKS = UIKit
+MobileHeaders_FRAMEWORKS = UIKit WebKit
 MobileHeaders_LIBRARIES = LzmaSDKObjC
 MobileHeaders_CFLAGS += -fobjc-arc -Wno-deprecated-declarations
 

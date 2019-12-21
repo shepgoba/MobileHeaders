@@ -7,5 +7,5 @@
 @property (nonatomic, strong) NSMutableArray *entries;
 @property (nonatomic, strong) UISwitch *darkModeSwitch;
 -(void)switchValueChanged;
--(void)indexSDKHeaders;
+
 @end

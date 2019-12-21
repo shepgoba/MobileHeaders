@@ -1,6 +1,7 @@
 #import "MHViewController.h"
 #import "MHUtils.h"
 #import "MHTableEntry.h"
+#import <WebKit/WebKit.h>
 
 #define kRegexHighlightViewTypeText @"text"
 #define kRegexHighlightViewTypeBackground @"background"
@@ -20,9 +21,15 @@
 @interface MHHeaderViewController : MHViewController <UITextViewDelegate>
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UIScrollView *textContainerView;
+@property (nonatomic, strong) WKWebView *headerView;
 @property (nonatomic, strong) UIScrollView *lineNumbersView;
 @property (nonatomic, strong) NSAttributedString *formattedText;
+@property (nonatomic, strong) NSLayoutConstraint *widthConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
+
 -(id)initWithURL:(NSURL *)url;
+-(void)formatText:(NSString *)str;
 -(NSAttributedString *)highlightText:(NSAttributedString *)attributedString;
 -(NSString *)textWithAddedLineCount:(NSString *)str;
 @end
