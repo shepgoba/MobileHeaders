@@ -1,7 +1,7 @@
 #import "MHSearchViewController.h"
 
 @implementation MHSearchViewController
-
+/*
 -(NSMutableArray *)contentsOfDirectory:(NSURL *)url {
     NSMutableArray *entries = [NSMutableArray new];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -19,13 +19,19 @@
 	//NSArray *entry = [entries sortedArrayUsingDescriptors:@[sortDescriptor]];
 	return entries;
 }
+*/
+-(void)themeDidChange {
+	[super themeDidChange];
+	self.searchController.searchBar.barStyle = self.darkTheme ? UIBarStyleBlack : UIBarStyleDefault;
+}
+
 - (NSMutableArray *)searchForFilesInIndexedList:(NSString *)query {
 	NSMutableArray *filteredEntries = [[NSMutableArray alloc] init];
 	NSArray *entries = [NSArray arrayWithContentsOfFile:[MHUtils URLForDocumentsResource:@"indexedFiles.dat"]];
 
 	for (NSString *file in entries) {
 		NSString *fileName = file.lastPathComponent;
-		if ([fileName hasPrefix: query]) {
+		if ([fileName.lowercaseString hasPrefix: query.lowercaseString]) {
 				NSURL *fileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [MHUtils URLForDocumentsResource:@""], file]];
                 MHTableEntry *entry = [[MHTableEntry alloc] initWithURL:fileURL];
                 [filteredEntries addObject: entry];
@@ -119,7 +125,6 @@
 
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
 	self.tableView.backgroundColor = [UIColor clearColor];
-    //self.tableView.alpha = 0;
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:_cellIdentifier];
 
 	self.tableView.delegate = self;
@@ -138,7 +143,5 @@
 	self.searchController.searchBar.delegate = self;
 
 	self.tableView.tableHeaderView = self.searchController.searchBar;
-
-    self.entries = nil;//[self contentsOfDirectory:[NSURL URLWithString:[MHUtils URLForDocumentsResource:@"Data"]]];
 }
 @end

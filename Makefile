@@ -5,6 +5,9 @@ rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(su
 export ARCHS = armv7 arm64 arm64e
 export TARGET = iphone:clang:13.1:9.0
 
+DEBUG = 0
+FINAL_PACKAGE = 1
+
 SDKVERSION_armv7 = 11.2
 APPLICATION_NAME = MobileHeaders
 

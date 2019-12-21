@@ -321,15 +321,15 @@ float MB(int bytes) {
     for (MHSDKInstallEntry *entry in self.allEntriesToDelete) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             if([[NSFileManager defaultManager] removeItemAtPath:entry.saveLocation error:nil]) {
-                for (MHSDKInstallEntry *entry in self.allEntriesToDelete) {
-                    [entry.view uninstallFinished];
-                }
                 dispatch_async(dispatch_get_main_queue(), ^{
-                 UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Success" message:@"SDK headers have been uninstalled successfully" preferredStyle:UIAlertControllerStyleAlert];
-            
-                UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                [alert addAction:defaultAction];
-                [self presentViewController:alert animated:YES completion:nil];
+                    for (MHSDKInstallEntry *entry in self.allEntriesToDelete) {
+                        [entry.view uninstallFinished];
+                    }
+                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Success" message:@"SDK headers have been uninstalled successfully" preferredStyle:UIAlertControllerStyleAlert];
+                
+                    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                    [alert addAction:defaultAction];
+                    [self presentViewController:alert animated:YES completion:nil];
                 });
             }
         });

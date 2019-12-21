@@ -20,16 +20,12 @@
 
 @interface MHHeaderViewController : MHViewController <UITextViewDelegate>
 @property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) UITextView *textView;
-@property (nonatomic, strong) UIScrollView *textContainerView;
 @property (nonatomic, strong) WKWebView *headerView;
-@property (nonatomic, strong) UIScrollView *lineNumbersView;
+@property (nonatomic, strong) NSString *rawText;
 @property (nonatomic, strong) NSAttributedString *formattedText;
-@property (nonatomic, strong) NSLayoutConstraint *widthConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
 
 -(id)initWithURL:(NSURL *)url;
--(void)formatText:(NSString *)str;
+-(void)formatText;
 -(NSAttributedString *)highlightText:(NSAttributedString *)attributedString;
 -(NSString *)textWithAddedLineCount:(NSString *)str;
 @end

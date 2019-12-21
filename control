@@ -1,6 +1,6 @@
 Package: com.shepgoba.mobileheaders
 Name: MobileHeaders
-Version: 1.0~beta1
+Version: 1.0~rc1
 Architecture: iphoneos-arm
 Description: An easy way to navigate header files on your iDevice.
 Maintainer: shepgoba

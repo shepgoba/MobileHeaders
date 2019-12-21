@@ -7,6 +7,6 @@
 @property (nonatomic, strong) NSArray *entries;
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong, readonly) NSString *cellIdentifier;
-- (NSMutableArray *)contentsOfDirectory:(NSURL *)url;
+//- (NSMutableArray *)contentsOfDirectory:(NSURL *)url;
 - (NSMutableArray *)searchForFilesInIndexedList:(NSString *)query;
 @end

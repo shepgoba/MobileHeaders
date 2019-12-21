@@ -23,15 +23,27 @@
     return finalString;
 }
 
+-(void)updateWebViewContent {
+    NSString *css = [NSString stringWithFormat:@"<head>"
+                        "<link rel=\"stylesheet\" type=\"text/css\" href=\"headerView.css\">"
+                        "</head>"];
+    NSDictionary *documentAttributes = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};    
+    NSData *htmlData = [self.formattedText dataFromRange:NSMakeRange(0, self.formattedText.length) documentAttributes:documentAttributes error:NULL];
+    NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+    NSString *finalHeaderString = [NSString stringWithFormat:@"%@%@", css, htmlString];
+    [self.headerView loadHTMLString:finalHeaderString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"headerView" ofType:@"css"]]];
+}
+
 -(void)themeDidChange {
     [super themeDidChange];
-    if (self.textView) {
-        //[self formatText:self.formattedText];
-        //self.textView.attributedText = self.formattedText;
+    if (self.headerView) {
+        [self formatText];
+        [self updateWebViewContent];
     }
 }
 
--(void)formatText:(NSString *)str {
+-(void)formatText {
+    NSString *str = self.rawText;
     UIFont *customFont = [UIFont fontWithName:@"RobotoMono-Regular" size:18];
     NSDictionary *attributes = @{ NSFontAttributeName : customFont };
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str attributes:attributes];
@@ -88,15 +100,8 @@ Thanks qwertyuiop1379 in AnActuallyGoodFilzaEditor (https://github.com/qwertyuio
     self.title = self.url.absoluteString.lastPathComponent;
     NSError *error;
     NSString *fileContents = [NSString stringWithContentsOfFile:[[self.url absoluteString] stringByReplacingOccurrencesOfString:@"file://" withString:@""] encoding:NSUTF8StringEncoding error:&error];
-    [self formatText:fileContents];
-
-    NSString *css = [NSString stringWithFormat:@"<head>"
-                        "<link rel=\"stylesheet\" type=\"text/css\" href=\"headerView.css\">"
-                        "</head>"];
-    NSDictionary *documentAttributes = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};    
-    NSData *htmlData = [self.formattedText dataFromRange:NSMakeRange(0, self.formattedText.length) documentAttributes:documentAttributes error:NULL];
-    NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
-    NSString *finalHeaderString = [NSString stringWithFormat:@"%@%@", css, htmlString];
+    self.rawText = fileContents;
+    [self formatText];
     /*self.textView = [[UITextView alloc] init];
     self.textView.delegate = self;
     self.textView.scrollEnabled = NO;
@@ -111,10 +116,12 @@ Thanks qwertyuiop1379 in AnActuallyGoodFilzaEditor (https://github.com/qwertyuio
 
     WKWebViewConfiguration *config = [WKWebViewConfiguration new];
     self.headerView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
-    [self.headerView loadHTMLString:finalHeaderString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"headerView" ofType:@"css"]]];
+    //[self.headerView loadHTMLString:finalHeaderString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"headerView" ofType:@"css"]]];
     self.headerView.scrollView.backgroundColor = [UIColor clearColor];
     self.headerView.opaque = NO;
     self.headerView.backgroundColor = [UIColor clearColor];
+
+    [self updateWebViewContent];
     [self.view addSubview:self.headerView];
     //UIFont *customFont = [UIFont fontWithName:@"RobotoMono-Regular" size:12];
     /*CGRect textRect = [self.textView.text boundingRectWithSize:CGSizeMake(9999,9999)   
