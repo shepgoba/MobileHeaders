@@ -1,5 +1,6 @@
 #import "MHTableViewController.h"
 #import "MHHeaderViewController.h"
+#import "MHExplorerViewController.h"
 #import "MHTableEntry.h"
 #import "MHUtils.h"
 

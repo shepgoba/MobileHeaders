@@ -5,18 +5,18 @@ rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(su
 export ARCHS = armv7 arm64 arm64e
 export TARGET = iphone:clang:13.1:9.0
 
-DEBUG = 0
-FINAL_PACKAGE = 1
+export DEBUG = 0
+export FINAL_PACKAGE = 1
 
 SDKVERSION_armv7 = 11.2
-APPLICATION_NAME = MobileHeaders
+APPLICATION_NAME = iHeaders
 
-MobileHeaders_FILES = $(call rwildcard,.,*.m) $(call rwildcard,.,*.cpp) $(call rwildcard,.,*.mm) $(call rwildcard,.,*.c)
-MobileHeaders_FRAMEWORKS = UIKit WebKit
-MobileHeaders_LIBRARIES = LzmaSDKObjC
-MobileHeaders_CFLAGS += -fobjc-arc -Wno-deprecated-declarations
+iHeaders_FILES = $(call rwildcard,.,*.m) $(call rwildcard,.,*.cpp) $(call rwildcard,.,*.mm) $(call rwildcard,.,*.c)
+iHeaders_FRAMEWORKS = UIKit WebKit
+iHeaders_LIBRARIES = LzmaSDKObjC
+iHeaders_CFLAGS += -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/application.mk
 
 after-install::
-	install.exec "killall \"MobileHeaders\"" || true
+	install.exec "killall \"iHeaders\"" || true

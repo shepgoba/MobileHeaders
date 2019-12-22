@@ -1,8 +1,8 @@
 #import "MHSDKInstallerController.h"
 #include <dlfcn.h>
 
-#define ALERT(str) [[[UIAlertView alloc] initWithTitle:@"Alert" message:str delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
 #define UICOLORMAKE(r, g, b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1]
+
 @implementation MHSDKInstallerController
 -(id)init {
     if ((self = [super init])) {
@@ -41,7 +41,6 @@
     NSMutableDictionary *installedSDKs = [[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"installedSDKs"] mutableCopy];
 
     if (!installedSDKs) {
-        ALERT(@"oof");
         installedSDKs = [[NSMutableDictionary alloc] init];
         for (NSDictionary *dict in self.SDKList[@"versions"]) {
             NSString *key = dict[@"ios-version"];
@@ -156,7 +155,7 @@
     [self themeDidChange];
 
     self.headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    self.headerLabel.text = @"Download SDK Headers";
+    self.headerLabel.text = @"Manage SDK Headers";
     self.headerLabel.textColor = self.darkTheme ? [UIColor whiteColor] : [UIColor blackColor];
     self.headerLabel.font = [UIFont boldSystemFontOfSize:30];
     [self.headerLabel sizeToFit];
@@ -331,6 +330,8 @@ float MB(int bytes) {
                     UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                     [alert addAction:defaultAction];
                     [self presentViewController:alert animated:YES completion:nil];
+
+                    [MHUtils indexHeadersAndPresentAlertOn:self];
                 });
             }
         });

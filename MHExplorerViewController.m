@@ -79,7 +79,7 @@
                    				error:&error] mutableCopy];
 	for (NSURL *url in URLs) {
 		MHTableEntry *fileObject = [[MHTableEntry alloc] initWithURL:url];
-		if ([fileObject.name isEqual: @".DS_Store"])
+		if ([fileObject.name isEqual: @".DS_Store"] || [fileObject.name isEqual: @".gitignore"])
 			continue;
 		[entries addObject:fileObject];
 	}

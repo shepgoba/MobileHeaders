@@ -1,5 +1,5 @@
-Package: com.shepgoba.mobileheaders
-Name: MobileHeaders
+Package: com.shepgoba.iheaders
+Name: iHeaders
 Version: 1.0~rc1
 Architecture: iphoneos-arm
 Description: An easy way to navigate header files on your iDevice.

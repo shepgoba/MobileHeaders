@@ -1,25 +1,7 @@
 #import "MHSearchViewController.h"
 
 @implementation MHSearchViewController
-/*
--(NSMutableArray *)contentsOfDirectory:(NSURL *)url {
-    NSMutableArray *entries = [NSMutableArray new];
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSArray *properties = [NSArray arrayWithObjects: NSURLLocalizedNameKey, nil];
-	NSError *error = nil;
-	NSMutableArray *URLs = [[fileManager contentsOfDirectoryAtURL:url
-								includingPropertiesForKeys:properties
-                   				options:(NSDirectoryEnumerationSkipsPackageDescendants)
-                   				error:&error] mutableCopy];
-	for (NSURL *url in URLs) {
-		MHTableEntry *fileObject = [[MHTableEntry alloc] initWithURL:url];
-		[entries addObject:fileObject];
-	}
-	//NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-	//NSArray *entry = [entries sortedArrayUsingDescriptors:@[sortDescriptor]];
-	return entries;
-}
-*/
+
 -(void)themeDidChange {
 	[super themeDidChange];
 	self.searchController.searchBar.barStyle = self.darkTheme ? UIBarStyleBlack : UIBarStyleDefault;
@@ -74,8 +56,6 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	NSString *searchText = searchBar.text;
 	if (searchText && searchText.length > 0) {
-		//NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@", searchText];
-		//NSArray *newEntries = [self.entries filteredArrayUsingPredicate:predicate];
 		NSArray *entries = [self searchForFilesInIndexedList:searchText];
 		NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
 		self.entries = [entries sortedArrayUsingDescriptors:@[sortDescriptor]];
@@ -94,8 +74,8 @@
 	[self.searchController resignFirstResponder];
 	MHTableEntry *currentObject = [self.entries objectAtIndex:indexPath.row];
 	if (currentObject.isDirectory) {
-		//MHExplorerViewController *newViewController = [[MHExplorerViewController alloc] initWithURL:currentObject.url];
-		//[self.navigationController pushViewController: newViewController animated:YES];
+		MHExplorerViewController *newViewController = [[MHExplorerViewController alloc] initWithURL:currentObject.url];
+		[self.navigationController pushViewController: newViewController animated:YES];
 	} else {
 		MHHeaderViewController *headerViewController = [[MHHeaderViewController alloc] initWithURL:currentObject.url];
 		[self.navigationController pushViewController: headerViewController animated:YES];
