@@ -4,6 +4,7 @@
 -(void)themeDidChange {
     [super themeDidChange];
     [self.tableView reloadData];
+    self.tableView.indicatorStyle = self.darkTheme ? UIScrollViewIndicatorStyleWhite : UIScrollViewIndicatorStyleBlack;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

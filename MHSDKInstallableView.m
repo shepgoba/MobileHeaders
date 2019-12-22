@@ -10,14 +10,11 @@
         self.entry.view = self;
         self.backgroundColor = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkModeEnabled"] ? UICOLORMAKE(80, 80 ,80) : UICOLORMAKE(220, 220, 220);
         self.layer.cornerRadius = 20;
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(installFinished) name:@"MHSDKWasInstalled" object:nil];
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:@"MHSDKWasUninstalled" object:nil];
     }
     return self;
 }
 
 -(void)uninstallFinished {
-    //NSDictionary *installedSDKs = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"installedSDKs"];
     self.entry.installed = NO;
     self.installedLabel.hidden = YES;
 }

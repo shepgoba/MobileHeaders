@@ -33,6 +33,7 @@
         [self presentViewController:alert animated:YES completion:nil];
         for (MHSDKInstallEntry *entry in self.allEntriesToDownload)
             [entry.view installFinished];
+        [MHUtils indexHeadersAndPresentAlertOn:self];
     });
 }
 

@@ -125,6 +125,7 @@
 
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
 	self.tableView.backgroundColor = [UIColor clearColor];
+	self.tableView.indicatorStyle = self.darkTheme ? UIScrollViewIndicatorStyleWhite : UIScrollViewIndicatorStyleBlack;
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:_cellIdentifier];
 
 	self.tableView.delegate = self;

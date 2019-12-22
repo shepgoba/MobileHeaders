@@ -39,6 +39,7 @@
     if (self.headerView) {
         [self formatText];
         [self updateWebViewContent];
+        self.headerView.scrollView.indicatorStyle = self.darkTheme ? UIScrollViewIndicatorStyleWhite : UIScrollViewIndicatorStyleBlack;
     }
 }
 
@@ -102,17 +103,6 @@ Thanks qwertyuiop1379 in AnActuallyGoodFilzaEditor (https://github.com/qwertyuio
     NSString *fileContents = [NSString stringWithContentsOfFile:[[self.url absoluteString] stringByReplacingOccurrencesOfString:@"file://" withString:@""] encoding:NSUTF8StringEncoding error:&error];
     self.rawText = fileContents;
     [self formatText];
-    /*self.textView = [[UITextView alloc] init];
-    self.textView.delegate = self;
-    self.textView.scrollEnabled = NO;
-    self.textView.editable = NO;
-    self.textView.text = fileContents;
-
-    self.textView.attributedText = self.formattedText;
-    self.textView.backgroundColor = [UIColor clearColor];
-
-    self.textContainerView = [[UIScrollView alloc] init];
-    self.textContainerView.backgroundColor = [UIColor clearColor];*/
 
     WKWebViewConfiguration *config = [WKWebViewConfiguration new];
     self.headerView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
@@ -120,42 +110,9 @@ Thanks qwertyuiop1379 in AnActuallyGoodFilzaEditor (https://github.com/qwertyuio
     self.headerView.scrollView.backgroundColor = [UIColor clearColor];
     self.headerView.opaque = NO;
     self.headerView.backgroundColor = [UIColor clearColor];
-
+    self.headerView.scrollView.indicatorStyle = self.darkTheme ? UIScrollViewIndicatorStyleWhite : UIScrollViewIndicatorStyleBlack;
     [self updateWebViewContent];
     [self.view addSubview:self.headerView];
-    //UIFont *customFont = [UIFont fontWithName:@"RobotoMono-Regular" size:12];
-    /*CGRect textRect = [self.textView.text boundingRectWithSize:CGSizeMake(9999,9999)   
-                         options:NSStringDrawingUsesLineFragmentOrigin
-                         attributes:@{NSFontAttributeName:customFont}
-                         context:nil];*/
-
-    //self.textView.contentSize = CGSizeMake(textRect.size.width + 20, textRect.size.height + 20);
-    /*[self.view addSubview:self.textContainerView];
-    [self.textContainerView addSubview:self.textView];
-
-        self.textContainerView.contentSize = CGSizeMake(textRect.size.width, textRect.size.height);
-
-    self.textContainerView.translatesAutoresizingMaskIntoConstraints = false;
-    self.textView.translatesAutoresizingMaskIntoConstraints = false;
-
-    if (@available(iOS 11, *)) {
-        UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
-        [self.textContainerView.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor].active = YES;
-        [self.textContainerView.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor].active = YES;
-        [self.textContainerView.topAnchor constraintEqualToAnchor:guide.topAnchor].active = YES;
-        [self.textContainerView.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor].active = YES;
-
-    } else {
-        UILayoutGuide *margins = self.view.layoutMarginsGuide;
-        [self.textContainerView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
-        [self.textContainerView.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor].active = YES;
-        [self.textContainerView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
-        [self.textContainerView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
-    }
-    [self.textView.leadingAnchor constraintEqualToAnchor:self.textContainerView.leadingAnchor].active = YES;
-    [self.textView.trailingAnchor constraintEqualToAnchor:self.textContainerView.trailingAnchor].active = YES;
-    [self.textView.topAnchor constraintEqualToAnchor:self.textContainerView.topAnchor].active = YES;
-    [self.textView.bottomAnchor constraintEqualToAnchor:self.textContainerView.bottomAnchor].active = YES;*/
 
 }
 @end

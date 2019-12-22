@@ -46,12 +46,12 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 	MHTableEntry *entry = self.filteredEntries[indexPath.row];
 	cell.textLabel.text = entry.name;
-	if ([entry.name.pathExtension isEqual: @"framework"]) {
+	/*if ([entry.name.pathExtension isEqual: @"framework"]) {
 		UIImage *frameworkImage = [UIImage imageWithContentsOfFile:[MHUtils URLForBundleResource:@"framework.png"]];
 		cell.imageView.image = [UIImage imageWithCGImage:frameworkImage.CGImage scale:frameworkImage.size.width/40 orientation:frameworkImage.imageOrientation];
 	} else {
 		cell.imageView.image = nil;
-	}
+	}*/
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -96,6 +96,7 @@
 
 	self.tableView.delegate = self;
 	self.tableView.dataSource = self;
+	self.tableView.indicatorStyle = self.darkTheme ? UIScrollViewIndicatorStyleWhite : UIScrollViewIndicatorStyleBlack;
 
 	[self.view addSubview:self.tableView];
 
