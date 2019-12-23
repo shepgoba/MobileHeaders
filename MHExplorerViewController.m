@@ -23,6 +23,7 @@
 }
 
 -(void)SDKWasInstalled {
+	[self loadEntries];
 	[self.tableView reloadData];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -89,8 +90,9 @@
 }
 -(void)setup {
 	[self loadEntries];
+
 	self.filteredEntries = [self.entries mutableCopy];
-	self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+	self.tableView = [[UITableView alloc] init];
 	self.tableView.backgroundColor = [UIColor clearColor];
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:_cellIdentifier];
 
@@ -100,6 +102,22 @@
 
 	[self.view addSubview:self.tableView];
 
+	//self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStylePlain target:self.tableView action:@selector(reloadData)];
+	self.tableView.translatesAutoresizingMaskIntoConstraints = false;
+    if (@available(iOS 11, *)) {
+        UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
+        [self.tableView.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor].active = YES;
+        [self.tableView.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor].active = YES;
+        [self.tableView.topAnchor constraintEqualToAnchor:guide.topAnchor].active = YES;
+        [self.tableView.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor].active = YES;
+    } else {
+        UILayoutGuide *margins = self.view.layoutMarginsGuide;
+        [self.tableView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
+        [self.tableView.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor].active = YES;
+        [self.tableView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
+        [self.tableView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
+    }
+	
 	self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 	self.searchController.delegate = self;
 	self.searchController.searchBar.barStyle = self.darkTheme ? UIBarStyleBlack : UIBarStyleDefault;
@@ -141,6 +159,18 @@
     });
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+	//self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y, size.height, self.searchController.searchBar.frame.size.height);
+	[self.tableView reloadData];
+	[self.tableView layoutIfNeeded];
+	[coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+
+
+    }];
+}
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	[self setup];

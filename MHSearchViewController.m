@@ -103,7 +103,7 @@
     self.title = @"Search";
     _cellIdentifier = @"SearchCells";
 
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    self.tableView = [[UITableView alloc] init];
 	self.tableView.backgroundColor = [UIColor clearColor];
 	self.tableView.indicatorStyle = self.darkTheme ? UIScrollViewIndicatorStyleWhite : UIScrollViewIndicatorStyleBlack;
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:_cellIdentifier];
@@ -112,7 +112,20 @@
 	self.tableView.dataSource = self;
 
 	[self.view addSubview:self.tableView];
-
+	self.tableView.translatesAutoresizingMaskIntoConstraints = false;
+    if (@available(iOS 11, *)) {
+        UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
+        [self.tableView.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor].active = YES;
+        [self.tableView.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor].active = YES;
+        [self.tableView.topAnchor constraintEqualToAnchor:guide.topAnchor].active = YES;
+        [self.tableView.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor].active = YES;
+    } else {
+        UILayoutGuide *margins = self.view.layoutMarginsGuide;
+        [self.tableView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
+        [self.tableView.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor].active = YES;
+        [self.tableView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
+        [self.tableView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
+    }
 
 	self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 	self.searchController.delegate = self;

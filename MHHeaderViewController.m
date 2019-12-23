@@ -105,7 +105,7 @@ Thanks qwertyuiop1379 in AnActuallyGoodFilzaEditor (https://github.com/qwertyuio
     [self formatText];
 
     WKWebViewConfiguration *config = [WKWebViewConfiguration new];
-    self.headerView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
+    self.headerView = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,0,0) configuration:config];
     //[self.headerView loadHTMLString:finalHeaderString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"headerView" ofType:@"css"]]];
     self.headerView.scrollView.backgroundColor = [UIColor clearColor];
     self.headerView.opaque = NO;
@@ -114,5 +114,19 @@ Thanks qwertyuiop1379 in AnActuallyGoodFilzaEditor (https://github.com/qwertyuio
     [self updateWebViewContent];
     [self.view addSubview:self.headerView];
 
+    self.headerView.translatesAutoresizingMaskIntoConstraints = false;
+    if (@available(iOS 11, *)) {
+        UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
+        [self.headerView.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor].active = YES;
+        [self.headerView.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor].active = YES;
+        [self.headerView.topAnchor constraintEqualToAnchor:guide.topAnchor].active = YES;
+        [self.headerView.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor].active = YES;
+    } else {
+        UILayoutGuide *margins = self.view.layoutMarginsGuide;
+        [self.headerView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
+        [self.headerView.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor].active = YES;
+        [self.headerView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
+        [self.headerView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
+    }
 }
 @end

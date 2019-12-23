@@ -73,31 +73,22 @@
     [self.darkModeSwitch addTarget:self action:@selector(switchValueChanged) forControlEvents:UIControlEventValueChanged];
 
     [self.view addSubview:self.tableView];
-
-    [self.tableView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
-    [NSLayoutConstraint constraintWithItem:self.tableView
-                                        attribute:NSLayoutAttributeTop
-                                        relatedBy:NSLayoutRelationEqual
-                                        toItem:self.view  
-                                        attribute:NSLayoutAttributeTop
-                                        multiplier:1.f
-                                        constant:100.f].active = YES;
-
-    [NSLayoutConstraint constraintWithItem:self.tableView
-                                    attribute:NSLayoutAttributeWidth
-                                    relatedBy:NSLayoutRelationEqual
-                                    toItem:self.view  
-                                    attribute:NSLayoutAttributeWidth
-                                    multiplier:1.0f
-                                    constant:0.f].active = YES;
     
-    [NSLayoutConstraint constraintWithItem:self.tableView
-                                    attribute:NSLayoutAttributeHeight
-                                    relatedBy:NSLayoutRelationEqual
-                                    toItem:self.view  
-                                    attribute:NSLayoutAttributeHeight
-                                    multiplier:0.33f
-                                    constant:0.f].active = YES;
+    self.tableView.translatesAutoresizingMaskIntoConstraints = false;
+    if (@available(iOS 11, *)) {
+        UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
+        [self.tableView.leadingAnchor constraintEqualToAnchor:guide.leadingAnchor].active = YES;
+        [self.tableView.trailingAnchor constraintEqualToAnchor:guide.trailingAnchor].active = YES;
+        [self.tableView.topAnchor constraintEqualToAnchor:guide.topAnchor].active = YES;
+        [self.tableView.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor].active = YES;
+    } else {
+        UILayoutGuide *margins = self.view.layoutMarginsGuide;
+        [self.tableView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
+        [self.tableView.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor].active = YES;
+        [self.tableView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor].active = YES;
+        [self.tableView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor].active = YES;
+    }
+
 }
 - (void) switchValueChanged {
     [[NSUserDefaults standardUserDefaults] setBool:self.darkModeSwitch.isOn forKey:@"darkModeEnabled"];
